@@ -1,6 +1,7 @@
 package tarea;
 
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main 
@@ -10,8 +11,16 @@ public class Main
 		Scanner entrada = new Scanner(System.in);
 	    int opcion = 0;
 	    boolean salir = false;
-	    opcion = entrada.nextInt();
 	    ArchivoCSV archivo = new  ArchivoCSV();
+	    
+	    ArrayList<Asignatura> lista = new ArrayList<>();
+
+	    for(int i = 0; i < 3; i++) {
+	    	System.out.println("Ingrese la asignatura: ");
+	    	String nombre = entrada.nextLine();
+	    	Asignatura asignatura = new Asignatura(nombre, i+1);
+	    	lista.add(asignatura);
+	    }
 	    
 	    while(!salir)
 	    {
@@ -28,9 +37,10 @@ public class Main
 	            	break;
 
 	            case 2:
-	            	System.out.println("| ---------- | Registro de notas | ---------- | ");
-	            	tarea.LimpiarPantalla.limpiarPantalla();
-	            	break;
+	                System.out.println("| ---------- | Registro de notas | ---------- | ");
+	                for(int j = 0; j < lista.size(); j++) {
+	              	  lista.get(j).mostrarAsignatura();
+	                }
 
 	            case 3:
 	            	System.out.println("| ---------- | Práctica | ---------- | ");

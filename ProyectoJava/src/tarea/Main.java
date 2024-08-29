@@ -19,6 +19,8 @@ public class Main
     int opcion = 0;
     boolean salir = false;
     opcion = entrada.nextInt();
+    
+    System.out.println("| ---------- | Elija una opcion | ---------- |");
 
     while(!salir)
       {

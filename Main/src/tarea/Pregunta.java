@@ -2,59 +2,32 @@ package tarea;
 
 public class Pregunta 
 {
-	private String pregunta;
-	private boolean opcionA;
-	private boolean opcionB;
-	private boolean opcionC;
-	private boolean opcionD;
+	private String enunciado;
+	private String[] respuestas;
+	private int respuestaCorrecta;
 	
-	public Pregunta(String pregunta, boolean opcionA, boolean opcionB, boolean opcionC, boolean opcionD)
+	public Pregunta(String enunciado, String[] respuestas, int respuestaCorrecta)
 	{
-		this.pregunta = pregunta;
-		this.opcionA = opcionA;
-		this.opcionB = opcionB;
-		this.opcionC = opcionC;
-		this.opcionD = opcionD;
+		this.enunciado = enunciado;
+		this.respuestas = respuestas;
+		this.respuestaCorrecta = respuestaCorrecta;
 	}
 	
-	public void setPregunta(String pregunta)
+	public String getEnunciado()
 	{
-		this.pregunta = pregunta;
+		return enunciado;
 	}
-	public void setOpcionA(boolean opcionA)
+	public String[] getRespuestas()
 	{
-		this.opcionA = opcionA;
+		return respuestas;
 	}
-	public void setOpcionB(boolean opcionB)
+	public int getRespuestaCorrecta()
 	{
-		this.opcionB = opcionB;
+		return respuestaCorrecta;
 	}
-	public void setOpcionC(boolean opcionC)
+	
+	public boolean esCorrecta(int respuestaUsuario)
 	{
-		this.opcionC = opcionC;
-	}
-	public void setOpcionD(boolean opcionD)
-	{
-		this.opcionD = opcionD;
-	}
-	public String getPregunta()
-	{
-		return pregunta;
-	}
-	public boolean getOpcionA()
-	{
-		return opcionA;
-	}
-	public boolean getOpcionB()
-	{
-		return opcionB;
-	}
-	public boolean getOpcionC()
-	{
-		return opcionC;
-	}
-	public boolean getOpcionD()
-	{
-		return opcionD;
+		return respuestaUsuario == respuestaCorrecta;
 	}
 }

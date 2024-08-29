@@ -1,7 +1,6 @@
 package tarea;
-
-
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main 
@@ -9,54 +8,58 @@ public class Main
 	public static void main(String[] args) 
 	{
 		Scanner entrada = new Scanner(System.in);
-	    int opcion = 0;
+		Map<String, BancoPreguntas> bancosPorTema = new HashMap<>();
 	    boolean salir = false;
 	    ArchivoCSV archivo = new  ArchivoCSV();
-	    
-	    ArrayList<Asignatura> lista = new ArrayList<>();
-
-	    for(int i = 0; i < 3; i++) {
-	    	System.out.println("Ingrese la asignatura: ");
-	    	String nombre = entrada.nextLine();
-	    	Asignatura asignatura = new Asignatura(nombre, i+1);
-	    	lista.add(asignatura);
-	    }
 	    
 	    while(!salir)
 	    {
 	    	System.out.println("1) INICIAR EVALUACIÓN\n2) REGISTRO DE NOTAS\n3) PRÁCTICA\n4) SOLUCIONARIO\n5) Salir");
 	        System.out.println("Ingrese una opción: ");
-	        opcion = entrada.nextInt();
+	        int opcion = entrada.nextInt();
 
 	        switch(opcion)
 	        {
 	        	case 1:
-	        		tarea.LimpiarPantalla.limpiarPantalla();
-	            	System.out.println("| ---------- | Iniciar evaluación | ---------- |");
-	            	tarea.LimpiarPantalla.limpiarPantalla();
+	            	System.out.println("| ---------- | Seleccione Tema | ---------- |");
+	            	for (String tema : bancosPorTema.keySet())
+	            	{
+	            		System.out.println("- " + tema);
+	            	}
+	            	String temaSeleccionado = entrada.next();
+	            	BancoPreguntas bancoSeleccionado = bancosPorTema.get(temaSeleccionado);
+	            	if (bancoSeleccionado != null)
+	            	{
+	            		Evaluacion evaluacion = new Evaluacion(bancoSeleccionado);
+	            		evaluacion.realizarEvaluacion();
+	            	}
+	            	else
+	            	{
+	            		System.out.println("Tema no encontrado. ");
+	            	}
 	            	break;
 
 	            case 2:
-	                System.out.println("| ---------- | Registro de notas | ---------- | ");
-	                for(int j = 0; j < lista.size(); j++) {
-	              	  lista.get(j).mostrarAsignatura();
-	                }
+	            	System.out.println("| ---------- | Registro de notas | ---------- | ");
+	            	LimpiarPantalla.limpiarPantalla();
+	            	break;
 
 	            case 3:
 	            	System.out.println("| ---------- | Práctica | ---------- | ");
-	            	tarea.LimpiarPantalla.limpiarPantalla();
+	            	LimpiarPantalla.limpiarPantalla();
 	            	break;
 
 	            case 4:
 	            	System.out.println("| ---------- | Solucionarío | ---------- | ");
-	            	tarea.LimpiarPantalla.limpiarPantalla();
+	            	LimpiarPantalla.limpiarPantalla();
 	            	archivo.leerArchivoCSV("C:\\Users\\jicc\\Desktop\\Libro1.csv");	
+	            	
 	            	break;
 
 	            case 5:
 	            	System.out.println("Saliendo del programa...");
 	            	salir = true;
-	            	tarea.LimpiarPantalla.limpiarPantalla();
+	            	LimpiarPantalla.limpiarPantalla();
 	            	break;
 
 	            default:

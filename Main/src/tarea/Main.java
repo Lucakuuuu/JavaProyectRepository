@@ -1,5 +1,6 @@
 package tarea;
 
+
 import java.util.Scanner;
 
 public class Main 
@@ -10,7 +11,8 @@ public class Main
 	    int opcion = 0;
 	    boolean salir = false;
 	    opcion = entrada.nextInt();
-
+	    ArchivoCSV archivo = new  ArchivoCSV();
+	    
 	    while(!salir)
 	    {
 	    	System.out.println("1) INICIAR EVALUACIÓN\n2) REGISTRO DE NOTAS\n3) PRÁCTICA\n4) SOLUCIONARIO\n5) Salir");
@@ -38,6 +40,7 @@ public class Main
 	            case 4:
 	            	System.out.println("| ---------- | Solucionarío | ---------- | ");
 	            	tarea.LimpiarPantalla.limpiarPantalla();
+	            	archivo.leerArchivoCSV("C:\\Users\\jicc\\Desktop\\Libro1.csv");	
 	            	break;
 
 	            case 5:

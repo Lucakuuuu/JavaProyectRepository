@@ -1,5 +1,7 @@
 package tarea;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -9,6 +11,7 @@ public class Main
 	{
 		Scanner entrada = new Scanner(System.in);
 		Map<String, BancoPreguntas> bancosPorTema = new HashMap<>();
+		List<Nota> registroNotas = new ArrayList<>();
 	    boolean salir = false;
 	    ArchivoCSV archivo = new  ArchivoCSV();
 	    
@@ -30,8 +33,13 @@ public class Main
 	            	BancoPreguntas bancoSeleccionado = bancosPorTema.get(temaSeleccionado);
 	            	if (bancoSeleccionado != null)
 	            	{
+	            		String estudiante = entrada.next();
 	            		Evaluacion evaluacion = new Evaluacion(bancoSeleccionado);
 	            		evaluacion.realizarEvaluacion();
+	            		
+	            		Nota nuevaNota = new Nota(estudiante, temaSeleccionado, evaluacion.getPuntuacion(), bancoSeleccionado.getPreguntas().size());
+	            		registroNotas.add(nuevaNota);
+	            		System.out.println("Evaluación registrada correctamente.");
 	            	}
 	            	else
 	            	{
@@ -42,6 +50,17 @@ public class Main
 	            case 2:
 	            	System.out.println("| ---------- | Registro de notas | ---------- | ");
 	            	LimpiarPantalla.limpiarPantalla();
+	            	if(registroNotas.isEmpty())
+	            	{
+	            		System.out.println("No hay notas registradas. ");
+	            	}
+	            	else
+	            	{
+	            		for (Nota nota : registroNotas)
+	            		{
+	            			System.out.println(nota);
+	            		}
+	            	}
 	            	break;
 
 	            case 3:

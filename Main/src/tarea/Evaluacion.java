@@ -35,7 +35,8 @@ public class Evaluacion
 			{
 				puntuacion++;
 			}
-		}
+			entrada.close();
+			}
 		System.out.println("Evaluación completa. Puntuación: " + puntuacion + " de " + preguntasEvaluacion.size());
 	}
 	

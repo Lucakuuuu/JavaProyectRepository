@@ -18,17 +18,25 @@ public class ArchivoCSV
 			while ((linea = lector.readLine()) != null)
 			{
 				parte = linea.split(";");
-				String pregunta = parte[0];
-				String respuesta1 = parte[1];
-				String respuesta2 = parte[2];
-				String respuesta3 = parte[3];
-				String respuesta4 = parte[4];
+				String asignatura = parte[0];
+				String tema = parte[1];
+				String pregunta = parte[2];
+				String respuesta1 = parte[3];
+				String respuesta2 = parte[4];
+				String respuesta3 = parte[5];
+				String respuesta4 = parte[6];
+				String respuestaValida = parte[7];
 				System.out.println();
+				System.out.println("Asignatura: " + asignatura);
+				System.out.println("Tema: " + tema);
 				System.out.println("Pregunta: " + pregunta);
-				System.out.println("1) " + respuesta1);
-				System.out.println("2) " + respuesta2);
-				System.out.println("3) " + respuesta3);
-				System.out.println("4) " + respuesta4);
+				System.out.println(respuesta1);
+				System.out.println(respuesta2);
+				System.out.println(respuesta3);
+				System.out.println(respuesta4);
+				System.out.println("Respuesta: " + respuestaValida);
+				System.out.println();
+				System.out.println("------------------ o ------------------");
 			}
 			lector.close();
 			linea = null;

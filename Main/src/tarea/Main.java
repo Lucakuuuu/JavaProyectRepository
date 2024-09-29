@@ -71,7 +71,7 @@ public class Main
 	            case 4:
 	            	System.out.println("| ---------- | Solucionarío | ---------- | ");
 	            	LimpiarPantalla.limpiarPantalla();
-	            	archivo.leerArchivoCSV("C:\\Users\\jicc\\Desktop\\Libro1.csv");	
+	            	archivo.leerArchivoCSV("C:\\Users\\jicc\\Desktop\\preguntas.csv");	
 	            	
 	            	break;
 

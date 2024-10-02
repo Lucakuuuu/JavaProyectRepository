@@ -1,17 +1,16 @@
 package tarea;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class BancoPreguntas 
 {
 	private String tema;
 	private List<Pregunta> preguntas;
 	
-	public BancoPreguntas(String tema)
+	public BancoPreguntas(String tema, List<Pregunta> preguntas)
 	{
 		this.tema = tema;
-		this.preguntas = new ArrayList<>();
+		this.preguntas = preguntas;
 	}
 	
 	public void agregarPregunta(Pregunta pregunta)

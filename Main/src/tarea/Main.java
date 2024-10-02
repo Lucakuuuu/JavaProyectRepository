@@ -17,8 +17,11 @@ public class Main
 		List<Nota> registroNotas = new ArrayList<>();
 		List<Puntajes> puntajesPracticas = new ArrayList<>();
 	    boolean salir = false;
+	    
 	    ArchivoCSV archivo = new  ArchivoCSV();
 	    String carpetaPreguntas = "src/Preguntas/";
+	    Set<String> materias = obtenerMateriasDesdeCarpeta(carpetaPreguntas);
+	    bancosPorTema = cargarMaterias(carpetaPreguntas, materias, bancosPorTema);
 	    
 	    while(!salir)
 	    {
@@ -27,92 +30,71 @@ public class Main
 	        switch(opcion1)
 	        {
             case 1:
-	            	System.out.println("\n| ---------- | EVALUACIÓN | ---------- |\n"
-	            			+ "Materias:");
-	            	
-	                Set<String> materias = obtenerMateriasDesdeCarpeta(carpetaPreguntas);
-	                for (String materia : materias)
-	                {
-	                    System.out.println("- " + materia);
-	                }
-	                System.out.println("Escriba una opción una materia: ");
-	                String temaSeleccionado = entrada.next();
-	            	BancoPreguntas bancoSeleccionado = bancosPorTema.get(temaSeleccionado);
-	            	if (bancoSeleccionado != null)
-	            	{
-	            		String estudiante = entrada.next();
-	            		Evaluacion evaluacion = new Evaluacion(bancoSeleccionado);
-	            		evaluacion.realizarEvaluacion();
-	            		
-	            		Nota nuevaNota = new Nota(estudiante, temaSeleccionado, evaluacion.getPuntuacion(), bancoSeleccionado.getPreguntas().size());
-	            		registroNotas.add(nuevaNota);
-	            		System.out.println("Evaluación registrada correctamente.");
-	            	}
-	            	else
-	            	{
-	            		System.out.println("Tema no encontrado. ");
-	            	}
-	            	break;
+            	Menus.menuEvaluacion(materias);
+            	String temaSeleccionado1 = entrada.next();
+	            if(!temaSeleccionado1.equals("Salir")) {
+	            	BancoPreguntas bancoSeleccionado = bancosPorTema.get(temaSeleccionado1);
+			        if (bancoSeleccionado != null){
+			        	System.out.println("Ingrese el nombre del estudiante: ");
+			        	String estudiante = entrada.next();
+			            Evaluacion evaluacion = new Evaluacion(bancoSeleccionado);
+			           	evaluacion.realizarEvaluacion(entrada, bancosPorTema);
+			           	Nota nuevaNota = new Nota(estudiante, temaSeleccionado1, evaluacion.getPuntuacion(), bancoSeleccionado.getPreguntas().size());
+			           	registroNotas.add(nuevaNota);
+			           	System.out.println("Evaluación registrada correctamente.\n");
+			        }
+			        else System.out.println("Tema no encontrado.\n");
+	            }
+	            else System.out.println("Volviendo... \n");
+	            break;
 
 	            case 2:
-	            	System.out.println("| ---------- | Registro de notas | ---------- | ");
-	            	LimpiarPantalla.limpiarPantalla();
-	            	if(registroNotas.isEmpty())
-	            	{
-	            		System.out.println("No hay notas registradas. ");
-	            	}
+	            	if(registroNotas.isEmpty()) System.out.println("No hay notas registradas.\n");
 	            	else
 	            	{
-	            		for (Nota nota : registroNotas){
-	            			System.out.println(nota);
-	            		}
+	            		Menus.menuRegistroNotas(materias);
+		                String temaSeleccionado2 = entrada.next();
+		                if(!temaSeleccionado2.equals("Salir")) {
+		                	for (Nota nota : registroNotas)
+			            		if(temaSeleccionado2.equals(nota.getTema()))
+			            			System.out.println("---------------- o -----------------\n"
+			            					+ nota);
+		                }
+		                System.out.println("\n");
 	            	}
 	            	break;
 
 	            case 3:
-	            	System.out.println("\n| ---------- | Práctica | ---------- | ");
-	            	Menus.menuPractica();
 	            	int salida = 0;
 	            	while(salida == 0) {
+	            		Menus.menuPractica();
 		            	int opcion2 = entrada.nextInt();
 		            	switch(opcion2){
 		            	case 1:
-			            	for (String tema : bancosPorTema.keySet())
-			            	{
-			            		System.out.println("- " + tema);
-			            	}
-			            	String materiaSeleccionada = entrada.next();
-			            	BancoPreguntas materiaSeleccionado = bancosPorTema.get(materiaSeleccionada);
-			            	if (materiaSeleccionado != null)
-			            	{
-			            		Evaluacion evaluacion = new Evaluacion(materiaSeleccionado);
-			            		evaluacion.realizarEvaluacion();
-			            		Puntajes puntaje = new Puntajes(materiaSeleccionada, evaluacion.getPuntuacion());
-			            		puntajesPracticas.add(puntaje);
-			            		System.out.println("Práctica realizada.\n"
-			            				+ "Tu puntaje fue: "+ puntaje.getPuntaje());
-			            	}
-			            	else
-			            	{
-			            		System.out.println("Materia no encontrada. ");
-			            	}
+		            		Menus.subMenuPractica(materias);
+			                String temaSeleccionado3 = entrada.next();
+			                if(!temaSeleccionado3.equals("Salir")) {
+			                	BancoPreguntas materiaSeleccionado = bancosPorTema.get(temaSeleccionado3);
+				                if (materiaSeleccionado != null){
+						           	Evaluacion evaluacion = new Evaluacion(materiaSeleccionado);
+						           	evaluacion.realizarPractica(entrada, bancosPorTema);
+						           	Puntajes puntaje = new Puntajes(temaSeleccionado3, evaluacion.getPuntuacion());
+						           	puntajesPracticas.add(puntaje);
+						           	System.out.println("Práctica registrada correctamente.\n");
+				                }
+					            else System.out.println("Materia no encontrada.\n");
+			                }
+			                else System.out.println("Volviendo... \n");
 		            		break;
 		            		
 		            	case 2:
-			            	if(puntajesPracticas.isEmpty())
-			            	{
-			            		System.out.println("No hay notas registradas. ");
-			            	}
+			            	if(puntajesPracticas.isEmpty()) System.out.println("No hay puntajes registrados.");
 			            	else
-			            	{
-			            		for (Puntajes puntaje : puntajesPracticas){
-			            			System.out.println(puntaje);
-			            		}
-			            	}
+			            		Menus.subMenuRegistroPuntajes(puntajesPracticas);
 		            		break;
 		            		
 		            	case 3:
-		            		System.out.println("Volviendo al menú principal");
+		            		System.out.println("Volviendo al menú principal...\n");
 		            		salida = 1;
 		            		break;
 		            	}
@@ -121,19 +103,13 @@ public class Main
 	            	break;
 
 	            case 4:
-	            	System.out.println("| ---------- | SOLOCIONARIO | ---------- |\n"
-	            			+ "Materias:");
-
-	                Set<String> Materias = obtenerMateriasDesdeCarpeta(carpetaPreguntas);
-
-	                for (String materia : Materias)
-	                {
-	                    System.out.println("- " + materia);
+	            	Menus.menuSolucionario(materias);
+	                String temaSeleccionado4 = entrada.next();
+	                if(!temaSeleccionado4.equals("Salir")) {
+		            	String rutaCSV = "src/Preguntas/" + temaSeleccionado4 + ".csv";
+		            	archivo.leerArchivoCSV(rutaCSV);
 	                }
-	                System.out.println("Escriba una opción una materia: ");
-	                String materiaSeleccionada = entrada.next();
-	            	String rutaCSV = "src/Preguntas/" + materiaSeleccionada + ".csv";
-	            	archivo.leerArchivoCSV(rutaCSV);
+	                else System.out.println("Volviendo... \n");
 	            	break;
 
 	            case 5:
@@ -143,13 +119,25 @@ public class Main
 	            	break;
 
 	            default:
-	            	System.out.println("Ingrese una opción valida");
+	            	System.out.println("Ingrese una opción valida\n");
 	        }
 	    }
 	    entrada.close();
 	}
 	
-    private static Set<String> obtenerMateriasDesdeCarpeta(String carpeta)
+	private static Map<String, BancoPreguntas> cargarMaterias(String carpetaPreguntas, Set<String> materias, Map<String, BancoPreguntas> bancosPorTema) {
+		for (String materia : materias)
+    	{
+			String RutaCSV = "src/Preguntas/" + materia + ".csv";
+			ArchivoCSV archivo = new ArchivoCSV();
+			List<Pregunta> preguntas = archivo.leerPreguntasCSV(RutaCSV);
+			BancoPreguntas informacion = new BancoPreguntas(materia, preguntas);
+			bancosPorTema.put(materia, informacion);
+    	}
+		return bancosPorTema;
+	}
+
+	private static Set<String> obtenerMateriasDesdeCarpeta(String carpeta)
     {
         Set<String> materias = new HashSet<>();
         File folder = new File(carpeta);

@@ -50,6 +50,9 @@ public class Nota
 	
 	public String toString()
 	{
-		return "Estudiante: " + estudiante + "; Tema: " + tema + "; Puntuación: " + puntuacion + "; Puntuación Máxima: " + maxPuntuacion;
+		return "Estudiante: " + estudiante
+				+ "\nTema: " + tema
+				+ "\nPuntuación: " + puntuacion 
+				+ "\nPuntuación Máxima: " + maxPuntuacion;
 	}
 }

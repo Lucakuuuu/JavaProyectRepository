@@ -1,6 +1,8 @@
 package tarea;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.HashSet;
+import java.util.Set;
 
 
 
@@ -9,6 +11,27 @@ public class ArchivoCSV
 	private BufferedReader lector;
 	private String linea;
 	private String parte[] = null;
+	
+	public Set<String> leerMateriasCSV(String nombreArchivo)
+	{
+		Set<String> materias = new HashSet<>();
+		try
+		{
+			lector = new BufferedReader(new FileReader(nombreArchivo));
+			while ((linea = lector.readLine()) != null)
+			{
+				parte = linea.split(";");
+				String asignatura = parte[0];
+				materias.add(asignatura);
+			}
+			lector.close();
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error al leer las materias: " + e.getMessage());
+		}
+		return materias;
+	}
 	
 	public void leerArchivoCSV(String nombreArchivo)
 	{

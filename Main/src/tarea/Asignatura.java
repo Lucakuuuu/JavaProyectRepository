@@ -1,6 +1,5 @@
 package tarea;
 
-
 public class Asignatura
   {
     private String nombre;

@@ -1,4 +1,5 @@
 package tarea;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+
 
 public class Main 
 {
@@ -117,7 +119,7 @@ public class Main
 						            					+ puntaje);
 					                }
 					                else {
-					                	System.out.println("Volviendo...\n");
+					                	System.out.println("Volviendo...");
 					            		salida1 = 1;
 					                }
 				            	}

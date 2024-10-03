@@ -31,7 +31,7 @@ public class Menus {
 	}
 
 	public static void menuRegistroNotas(Set<String> materias) {
-		System.out.println("\n| ---------- | REGISTRO DE NOTAS | ---------- |\n"
+		System.out.println("\n| ---------- | REGISTRO DE NOTAS OBTENIDAS | ---------- |\n"
 				+ "Materias:");
 		for (String materia : materias) System.out.println("- " + materia);
         System.out.println("- Salir\n"
@@ -46,8 +46,12 @@ public class Menus {
         		+ "Escriba una materia de la que desea realizar una práctica: ");
 	}
 
-	public static void subMenuRegistroPuntajes(List<Puntajes> puntajesPracticas) {
-		for (Puntajes puntaje : puntajesPracticas) System.out.println(puntaje);
+	public static void subMenuRegistroPuntajes(Set<String> materias) {
+		System.out.println("\n| ---------- | REGISTRO DE PUNTAJES OBTENIDOS | ---------- |\n"
+				+ "Materias:");
+		for (String puntaje : materias) System.out.println("- " + puntaje);
+		System.out.println("- Salir\n"
+        		+ "Escriba la materia de la que desea ver los puntajes obtenidos: ");
 	}
 
 	public static void menuSolucionario(Set<String> materias) {

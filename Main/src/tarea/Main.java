@@ -29,6 +29,7 @@ public class Main
 	        int opcion1 = entrada.nextInt();
 	        switch(opcion1)
 	        {
+	        // EVALUACION
             case 1:
             	Menus.menuEvaluacion(materias);
             	String temaSeleccionado1 = entrada.next();
@@ -49,22 +50,34 @@ public class Main
 	            break;
 
 	            case 2:
+	            	// REGISTRO DE NOTAS
 	            	if(registroNotas.isEmpty()) System.out.println("No hay notas registradas.\n");
 	            	else
 	            	{
-	            		Menus.menuRegistroNotas(materias);
-		                String temaSeleccionado2 = entrada.next();
-		                if(!temaSeleccionado2.equals("Salir")) {
-		                	for (Nota nota : registroNotas)
-			            		if(temaSeleccionado2.equals(nota.getTema()))
-			            			System.out.println("---------------- o -----------------\n"
-			            					+ nota);
-		                }
-		                System.out.println("\n");
+	            		int salida = 0;
+		            	while(salida == 0) {
+		            		Menus.menuRegistroNotas(materias);
+			                String temaSeleccionado2 = entrada.next();
+			                if(!temaSeleccionado2.equals("Salir")) {
+			                	List<Nota> notas = new ArrayList<>();
+			                	for (Nota nota : registroNotas) if(temaSeleccionado2.equals(nota.getTema())) notas.add(nota);
+			                	if(notas.size() == 0) System.out.println("No hay notas registradas para este tema...");
+			                	else
+			                		for(Nota nota : notas)
+			                			System.out.println("---------------- o -----------------\n"
+				            					+ nota);
+			                }
+			                else {
+			                	System.out.println("Volviendo al menú principal...\n");
+			            		salida = 1;
+			                }
+		            	}
+		            	System.out.println("\n");
 	            	}
 	            	break;
 
 	            case 3:
+	            	// PRACTICA
 	            	int salida = 0;
 	            	while(salida == 0) {
 	            		Menus.menuPractica();
@@ -78,19 +91,37 @@ public class Main
 				                if (materiaSeleccionado != null){
 						           	Evaluacion evaluacion = new Evaluacion(materiaSeleccionado);
 						           	evaluacion.realizarPractica(entrada, bancosPorTema);
-						           	Puntajes puntaje = new Puntajes(temaSeleccionado3, evaluacion.getPuntuacion());
+						           	Puntajes puntaje = new Puntajes(temaSeleccionado3, evaluacion.getPuntuacion(), materiaSeleccionado.getPreguntas().size());
 						           	puntajesPracticas.add(puntaje);
 						           	System.out.println("Práctica registrada correctamente.\n");
 				                }
 					            else System.out.println("Materia no encontrada.\n");
 			                }
-			                else System.out.println("Volviendo... \n");
+			                else System.out.println("Volviendo... ");
 		            		break;
 		            		
 		            	case 2:
 			            	if(puntajesPracticas.isEmpty()) System.out.println("No hay puntajes registrados.");
-			            	else
-			            		Menus.subMenuRegistroPuntajes(puntajesPracticas);
+			            	else {
+			            		int salida1 = 0;
+				            	while(salida1 == 0) {
+				            		Menus.subMenuRegistroPuntajes(materias);
+					            	String temaSeleccionado5 = entrada.next();
+					                if(!temaSeleccionado5.equals("Salir")) {
+					                	List<Puntajes> puntajes = new ArrayList<>();
+					                	for (Puntajes puntaje : puntajesPracticas) if(temaSeleccionado5.equals(puntaje.getMateria())) puntajes.add(puntaje);
+					                	if(puntajes.size() == 0) System.out.println("No hay notas registradas para este tema...");
+					                	else
+					                		for(Puntajes puntaje : puntajes)
+					                			System.out.println("---------------- o -----------------\n"
+						            					+ puntaje);
+					                }
+					                else {
+					                	System.out.println("Volviendo...\n");
+					            		salida1 = 1;
+					                }
+				            	}
+			            	}
 		            		break;
 		            		
 		            	case 3:
@@ -103,6 +134,7 @@ public class Main
 	            	break;
 
 	            case 4:
+	            	// SOLUCIONARIO
 	            	Menus.menuSolucionario(materias);
 	                String temaSeleccionado4 = entrada.next();
 	                if(!temaSeleccionado4.equals("Salir")) {

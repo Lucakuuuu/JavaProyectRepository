@@ -3,6 +3,7 @@ package ventanas;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import tarea.*;
 
 public class VentanaSeleccionEvaluacion extends JFrame {
 
@@ -27,8 +28,7 @@ public class VentanaSeleccionEvaluacion extends JFrame {
         contentPane.add(lblSeleccionarMateria);
 
         // Lista de materias (puedes añadir las materias que desees)
-        String[] materias = { "Matemáticas", "Historia", "Ciencias", "Literatura" };
-        JComboBox<String> comboMaterias = new JComboBox<>(materias);
+        JComboBox<String> comboMaterias = new JComboBox<>();
         comboMaterias.setBounds(100, 80, 200, 30);
         contentPane.add(comboMaterias);
 

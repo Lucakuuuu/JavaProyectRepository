@@ -27,8 +27,7 @@ public class ArchivoCSV
 			}
 			lector.close();
 		}
-		catch(Exception e)
-		{
+		catch(Exception e){
 			System.out.println("Error al leer las materias: " + e.getMessage());
 		}
 		return materias;
@@ -65,8 +64,7 @@ public class ArchivoCSV
 			lector.close();
 			linea = null;
 			parte = null;
-		}catch(Exception e)
-		{
+		}catch(Exception e){
 			System.out.println("Error: " + e.getMessage());
 		}
 	}
@@ -91,8 +89,7 @@ public class ArchivoCSV
 			lector.close();
 			linea = null;
 			parte = null;
-		}catch(Exception e)
-		{
+		}catch(Exception e){
 			System.out.println("Error: " + e.getMessage());
 		}
 		return preguntas;

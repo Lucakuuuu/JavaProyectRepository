@@ -1,6 +1,7 @@
 package ventanas;
 
 import javax.swing.*;
+import tarea.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 

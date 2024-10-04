@@ -4,7 +4,9 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.event.ActionListener;
+import java.util.Set;
 import java.awt.event.ActionEvent;
+import tarea.*;
 
 public class menuPrincipal extends JFrame {
 
@@ -83,7 +85,7 @@ public class menuPrincipal extends JFrame {
 		// Acción para iniciar evaluación
 		btnRealizarEvaluacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new VentanaSeleccionEvaluacion(); // Abre la ventana de selección de evaluación
+				new VentanaSeleccionEvaluacion(materias1); // Abre la ventana de selección de evaluación
 			}
 		});
 		

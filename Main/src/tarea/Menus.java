@@ -9,7 +9,7 @@ public class Menus {
     			+ "1) INICIAR EVALUACIÓN\n"
     			+ "2) REGISTRO DE NOTAS\n"
     			+ "3) PRÁCTICA\n"
-    			+ "4) SOLUCIONARIO\n"
+    			+ "4) EXTRAS\n"
     			+ "5) SALIR\n"
     			+ "Ingrese una opción: ");
 	}
@@ -60,5 +60,37 @@ public class Menus {
 		for (String materia : materias) System.out.println("- " + materia);
         System.out.println("- Salir\n"
         		+ "Escriba la materia de la que desea ver el solucionario: ");
+	}
+
+	public static void menuExtras() {
+		System.out.println("\n| ---------- | EXTRAS | ---------- |\n"
+				+ "1) SOLUCIONARIO\n"
+				+ "2) EDITOR DE PREGUNTAS\n"
+				+ "3) VOLVER AL MENÚ PRINCIPAL\n"
+				+ "Ingrese una opción: ");
+	}
+
+	public static void Editor() {
+		System.out.println("\n| ---------- | EDITOR | ---------- |\n"
+				+ "1) ELIMINAR PREGUNTA\n"
+				+ "2) MODIFICAR PREGUNTA\n"
+				+ "3) VOLVER AL MENÚ PRINCIPAL\n"
+				+ "Ingrese una opción: ");
+	}
+
+	public static void EliminarPreguntas(Set<String> materias) {
+		System.out.println("\n| ---------- | ELIMINAR PREGUNTAS | ---------- |\n"
+    			+ "Materias:");
+		for (String materia : materias) System.out.println("- " + materia);
+        System.out.println("- Salir\n"
+        		+ "Escriba la materia de la que desea eliminar preguntas: ");
+	}
+
+	public static void ModificarPreguntas(Set<String> materias) {
+		System.out.println("\n| ---------- | MODIFICAR PREGUNTAS | ---------- |\n"
+    			+ "Materias:");
+		for (String materia : materias) System.out.println("- " + materia);
+        System.out.println("- Salir\n"
+        		+ "Escriba la materia de la que desea modificar preguntas: ");
 	}
 }

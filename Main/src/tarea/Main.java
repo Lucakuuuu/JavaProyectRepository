@@ -22,8 +22,8 @@ public class Main
 	    
 	    ArchivoCSV archivo = new  ArchivoCSV();
 	    String carpetaPreguntas = "src/Preguntas/";
-	    Set<String> materias = obtenerMateriasDesdeCarpeta(carpetaPreguntas);
-	    bancosPorTema = cargarMaterias(carpetaPreguntas, materias, bancosPorTema);
+	    Set<String> materias = ObtenerDatos.obtenerMateriasDesdeCarpeta(carpetaPreguntas);
+	    bancosPorTema = ObtenerDatos.cargarMaterias(carpetaPreguntas, materias, bancosPorTema);
 	    
 	    while(!salir)
 	    {
@@ -136,14 +136,60 @@ public class Main
 	            	break;
 
 	            case 4:
-	            	// SOLUCIONARIO
-	            	Menus.menuSolucionario(materias);
-	                String temaSeleccionado4 = entrada.next();
-	                if(!temaSeleccionado4.equals("Salir")) {
-		            	String rutaCSV = "src/Preguntas/" + temaSeleccionado4 + ".csv";
-		            	archivo.leerArchivoCSV(rutaCSV);
-	                }
-	                else System.out.println("Volviendo... \n");
+	            	// EXTRAS
+	            	int salida1 = 0;
+	            	while(salida1 == 0) {
+	            		Menus.menuExtras();
+		            	int opcion2 = entrada.nextInt();
+		            	switch(opcion2) {
+			            	case 1:
+			            		Menus.menuSolucionario(materias);
+				                String temaSeleccionado4 = entrada.next();
+				                if(!temaSeleccionado4.equals("Salir")) {
+					            	String rutaCSV = "src/Preguntas/" + temaSeleccionado4 + ".csv";
+					            	archivo.leerArchivoCSV(rutaCSV);
+				                }
+				                else System.out.println("Volviendo... \n");
+				            	break;
+				            	
+			            	case 2:
+			            		boolean salida2 = false;
+			            		while(!salida2) {
+			            			Menus.Editor();
+			            			int opcion3 = entrada.nextInt();
+			            			switch(opcion3) {
+				            			case 1:
+				            				Menus.EliminarPreguntas(materias);
+				            				String temaSeleccionado6 = entrada.next();
+				            				if(!temaSeleccionado6.equals("Salir")) {
+				            					
+				            				}
+				            				else System.out.println("Volviendo...");
+				            				break;
+				            				
+				            			case 2:
+				            				Menus.ModificarPreguntas(materias);
+				            				String temaSeleccionado7 = entrada.next();
+				            				if(!temaSeleccionado7.equals("Salir")) {
+				            					
+				            				}
+				            				else System.out.println("Volviendo...");
+				            				break;
+				            				
+				            			case 3:
+				            				System.out.println("Volviendo... \n");
+				            				salida2 = true;
+				            				break;
+				            				
+			            			}
+			            		}
+			            		
+			            	case 3:
+			            		System.out.println("Volviendo al menú principal...\n");
+			            		salida1 = 1;
+			            		break;
+		            	}
+	            	}
 	            	break;
 
 	            case 5:
@@ -158,35 +204,4 @@ public class Main
 	    }
 	    entrada.close();
 	}
-	
-	private static Map<String, BancoPreguntas> cargarMaterias(String carpetaPreguntas, Set<String> materias, Map<String, BancoPreguntas> bancosPorTema) {
-		for (String materia : materias)
-    	{
-			String RutaCSV = "src/Preguntas/" + materia + ".csv";
-			ArchivoCSV archivo = new ArchivoCSV();
-			List<Pregunta> preguntas = archivo.leerPreguntasCSV(RutaCSV);
-			BancoPreguntas informacion = new BancoPreguntas(materia, preguntas);
-			bancosPorTema.put(materia, informacion);
-    	}
-		return bancosPorTema;
-	}
-
-	private static Set<String> obtenerMateriasDesdeCarpeta(String carpeta)
-    {
-        Set<String> materias = new HashSet<>();
-        File folder = new File(carpeta);
-        File[] listOfFiles = folder.listFiles();
-
-        if (listOfFiles != null) {
-            for (File file : listOfFiles) {
-                if (file.isFile() && file.getName().endsWith(".csv")) {
-                    String materia = file.getName().replace(".csv", "");
-                    materias.add(materia);
-                }
-            }
-        } else {
-            System.out.println("La carpeta no contiene archivos.");
-        }
-        return materias;
-    }
 }

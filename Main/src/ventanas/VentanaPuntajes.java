@@ -1,9 +1,11 @@
 package ventanas;
 
 import java.awt.*;
-import tarea.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
+
+import Codigo.*;
 
 class VentanaPuntajes extends JFrame {
 

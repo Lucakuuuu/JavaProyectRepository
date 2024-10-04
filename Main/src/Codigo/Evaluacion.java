@@ -1,4 +1,4 @@
-package tarea;
+package Codigo;
 
 import java.util.List;
 import java.util.Map;
@@ -61,5 +61,13 @@ public class Evaluacion {
 
     public int getPuntuacion() {
         return puntuacion;
+    }
+    
+    public BancoPreguntas getBanco() {
+    	return banco;
+    }
+    
+    public void incrementarPuntuacion() {
+    	this.puntuacion += 1;
     }
 }

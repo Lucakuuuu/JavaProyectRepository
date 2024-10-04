@@ -2,16 +2,21 @@ package ventanas;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import Codigo.*;
 import java.awt.*;
-import tarea.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
 
 public class VentanaSeleccionEvaluacion extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JTextField txtNombreEstudiante;
+    Scanner entrada = new Scanner(System.in);
 
-    public VentanaSeleccionEvaluacion() {
+    public VentanaSeleccionEvaluacion(Set<String> materias, Map<String, BancoPreguntas> bancosPorTema, List<Nota> registroNotas) {
         setTitle("Iniciar Evaluación");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 400, 300);
@@ -28,7 +33,8 @@ public class VentanaSeleccionEvaluacion extends JFrame {
         contentPane.add(lblSeleccionarMateria);
 
         // Lista de materias (puedes añadir las materias que desees)
-        JComboBox<String> comboMaterias = new JComboBox<>();
+        String[] materiasArray = materias.toArray(new String[0]);
+        JComboBox<String> comboMaterias = new JComboBox<>(materiasArray);
         comboMaterias.setBounds(100, 80, 200, 30);
         contentPane.add(comboMaterias);
 
@@ -56,13 +62,14 @@ public class VentanaSeleccionEvaluacion extends JFrame {
         // Acción para iniciar la evaluación
         btnIniciarEvaluacion.addActionListener(e -> {
             String materiaSeleccionada = (String) comboMaterias.getSelectedItem();
+            BancoPreguntas bancoSeleccionado = bancosPorTema.get(materiaSeleccionada);
             String nombreEstudiante = txtNombreEstudiante.getText();
             if (nombreEstudiante.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Por favor, ingrese el nombre del estudiante.");
             } else {
+            	Evaluacion evaluacion = new Evaluacion(bancoSeleccionado);
                 JOptionPane.showMessageDialog(this, "Iniciando evaluación de " + materiaSeleccionada + " para " + nombreEstudiante);
-                // Aquí puedes abrir la ventana con las preguntas de la evaluación.
-                // Por ejemplo: new VentanaEvaluacion(materiaSeleccionada, nombreEstudiante);
+                new VentanaEvaluacion(evaluacion, nombreEstudiante, materiaSeleccionada, registroNotas);
             }
         });
     }

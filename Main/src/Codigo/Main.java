@@ -1,9 +1,7 @@
-package tarea;
+package Codigo;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -142,7 +140,8 @@ public class Main
 	            		Menus.menuExtras();
 		            	int opcion2 = entrada.nextInt();
 		            	switch(opcion2) {
-			            	case 1:
+			            // MOSTRAR SOLUCIONARIO	
+		            	case 1:
 			            		Menus.menuSolucionario(materias);
 				                String temaSeleccionado4 = entrada.next();
 				                if(!temaSeleccionado4.equals("Salir")) {
@@ -152,31 +151,75 @@ public class Main
 				                else System.out.println("Volviendo... \n");
 				            	break;
 				            	
-			            	case 2:
+			            // EDITOR DE PREGUNTAS	
+		            	case 2:
+			            		
 			            		boolean salida2 = false;
 			            		while(!salida2) {
 			            			Menus.Editor();
 			            			int opcion3 = entrada.nextInt();
 			            			switch(opcion3) {
-				            			case 1:
+				            		// ELIMINAR PREGUNTA	
+			            			case 1:
 				            				Menus.EliminarPreguntas(materias);
 				            				String temaSeleccionado6 = entrada.next();
 				            				if(!temaSeleccionado6.equals("Salir")) {
+				            					 BancoPreguntas bancoSeleccionado = bancosPorTema.get(temaSeleccionado6);
+	                                                if (bancoSeleccionado != null) {
+	                                                    // Mostrar preguntas para que el usuario elija cuál eliminar
+	                                                    List<Pregunta> preguntas = bancoSeleccionado.getPreguntas();
+	                                                    for (int i = 0; i < preguntas.size(); i++) {
+	                                                        System.out.println((i + 1) + ". " + preguntas.get(i).getEnunciado());
+	                                                    }
+
+	                                                    System.out.println((preguntas.size()+1)+". Salir\n"+"Ingrese el número de la pregunta a eliminar: ");
+	                                                    int indicePregunta = entrada.nextInt() - 1;
+	                                                    if(!(preguntas.size() + 1 == indicePregunta)) break;
+	                                                    if (indicePregunta >= 0 && indicePregunta < preguntas.size()) {
+	                                                        Pregunta preguntaAEliminar = preguntas.get(indicePregunta);
+	                                                        bancosPorTema = ObtenerDatos.eliminarPregunta(temaSeleccionado6, preguntaAEliminar, bancosPorTema);
+	                                                        System.out.println("Pregunta eliminada exitosamente.");
+	                                                    } else {
+	                                                        System.out.println("Índice de pregunta inválido.");
+	                                                    }
+	                                                } else {
+	                                                    System.out.println("Materia no encontrada.");
+	                                                }
 				            					
 				            				}
 				            				else System.out.println("Volviendo...");
 				            				break;
 				            				
-				            			case 2:
+				            		// MODIFICAR PREGUNTA	
+			            			case 2:
 				            				Menus.ModificarPreguntas(materias);
 				            				String temaSeleccionado7 = entrada.next();
-				            				if(!temaSeleccionado7.equals("Salir")) {
-				            					
+				            				if(!temaSeleccionado7.equals("Salir")) 
+				            				{
+				            					BancoPreguntas bancoSeleccionado = bancosPorTema.get(temaSeleccionado7);
+                                                if (bancoSeleccionado != null) {
+                                                    System.out.println("Seleccione el número de la pregunta que desea modificar:");
+                                                    List<Pregunta> preguntas = bancoSeleccionado.getPreguntas();
+                                                    for (int i = 0; i < preguntas.size(); i++) {
+                                                        System.out.println((i + 1) + ". " + preguntas.get(i).getEnunciado());
+                                                    }
+                                                    System.out.println((preguntas.size()+1)+". Salir\n"+"Ingrese el número de la pregunta a eliminar: ");
+                                                    int preguntaIndex = entrada.nextInt() - 1;
+                                                    if(!(preguntas.size() + 1 == preguntaIndex)) break;
+                                                    if (preguntaIndex >= 0 && preguntaIndex < preguntas.size()) {
+                                                        Pregunta preguntaAModificar = preguntas.get(preguntaIndex);
+                                                        ObtenerDatos.modificarPregunta(temaSeleccionado7, preguntaAModificar, bancosPorTema, entrada);
+                                                    } else {
+                                                        System.out.println("Índice de pregunta no válido.");
+                                                    }
+                                                } else {
+                                                    System.out.println("Materia no encontrada.");
+                                                }
 				            				}
 				            				else System.out.println("Volviendo...");
 				            				break;
-				            				
-				            			case 3:
+				            		// CERRAR
+				            		case 3:
 				            				System.out.println("Volviendo... \n");
 				            				salida2 = true;
 				            				break;

@@ -1,4 +1,4 @@
-package tarea;
+package Codigo;
 
 public class Pregunta {
     private String enunciado;
@@ -21,5 +21,17 @@ public class Pregunta {
 
     public boolean esCorrecta(String respuestaUsuario) {
         return respuestaUsuario.equals(respuestaCorrecta);
+    }
+    
+    public void setEnunciado(String enunciado) {
+        this.enunciado = enunciado;
+    }
+
+    public void setRespuestas(String[] respuestas) {
+        this.respuestas = respuestas;
+    }
+
+    public void setRespuestaCorrecta(String respuestaCorrecta) {
+        this.respuestaCorrecta = respuestaCorrecta;
     }
 }

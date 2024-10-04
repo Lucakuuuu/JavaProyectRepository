@@ -1,4 +1,4 @@
-package tarea;
+package Codigo;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

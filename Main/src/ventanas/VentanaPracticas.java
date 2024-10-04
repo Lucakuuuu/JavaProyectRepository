@@ -1,9 +1,12 @@
 package ventanas;
 
 import java.awt.*;
-import tarea.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
+
+import Codigo.*;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -16,7 +19,7 @@ public class VentanaPracticas extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaPracticas() {
-		setTitle("Menú de Prácticas");
+		setTitle("Menú de Extras");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 450);
 		contentPane = new JPanel();
@@ -72,7 +75,7 @@ public class VentanaPracticas extends JFrame {
 		// Acción para volver al menú principal
 		btnVolver.addActionListener(e -> {
 			setVisible(false);
-			new menuPrincipal(); // Vuelve a mostrar la ventana principal
+			new VentanaPrincipal(null, null); // Vuelve a mostrar la ventana principal
 		});
 	}
 }

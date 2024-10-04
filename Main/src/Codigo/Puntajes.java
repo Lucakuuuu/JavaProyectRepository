@@ -1,4 +1,4 @@
-package tarea;
+package Codigo;
 
 public class Puntajes {
 	private String materia;

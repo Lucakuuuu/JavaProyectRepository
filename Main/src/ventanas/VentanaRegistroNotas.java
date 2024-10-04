@@ -1,16 +1,20 @@
 package ventanas;
 
 import javax.swing.*;
-import tarea.*;
 import javax.swing.border.EmptyBorder;
+
+import Codigo.*;
+
 import java.awt.*;
+import java.util.List;
+import java.util.Set;
 
 public class VentanaRegistroNotas extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
 
-    public VentanaRegistroNotas() {
+    public VentanaRegistroNotas(List<Nota> registroNotas) {
         // Configuración de la ventana
         setTitle("Ver Registro de Notas");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

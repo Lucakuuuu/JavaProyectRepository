@@ -71,29 +71,29 @@ public class VentanaMenuPrincipal extends JFrame {
 
         // Acción para iniciar evaluación
         btnRealizarEvaluacion.addActionListener(e -> {
-        	setVisible(false);
         	new VentanaSeleccionEvaluacion(materias, bancosPorTema, registroNotas, puntajesPracticas);
+        	dispose();
         	}
         );
 
         // Acción para ver registro de notas
         btnRegistroDeNotas.addActionListener(e -> {
-        	setVisible(false);
         	new VentanaSeleccionRegistroNotas(materias, bancosPorTema, registroNotas, puntajesPracticas);
+        	dispose();
         	}
         );
         
         // Acción para ir a "Prácticas"
         btnPracticas.addActionListener(e -> {
-        	setVisible(false);
         	new VentanaMenuPracticas(materias, bancosPorTema, registroNotas, puntajesPracticas);
+        	dispose();
     		}
         );
 
         // Acción para ir a "Extras"
         btnExtras.addActionListener(e -> {
-        	setVisible(false);
         	new VentanaMenuExtras(materias, bancosPorTema, registroNotas, puntajesPracticas);
+        	dispose();
         	}
         );
         

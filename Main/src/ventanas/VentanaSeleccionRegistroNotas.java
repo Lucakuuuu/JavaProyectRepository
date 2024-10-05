@@ -20,7 +20,7 @@ public class VentanaSeleccionRegistroNotas extends JFrame {
     public VentanaSeleccionRegistroNotas(Set<String> materias, Map<String, BancoPreguntas> bancosPorTema, List<Nota> registroNotas, List<Puntajes> puntajesPracticas) {
         setTitle("Seleccionar Materia para Ver Notas");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 400, 250);
+        setBounds(100, 100, 700, 450); // Ajuste del tamaño para acomodar el nuevo botón
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -29,22 +29,31 @@ public class VentanaSeleccionRegistroNotas extends JFrame {
         // Etiqueta de selección de materia
         JLabel lblSeleccionarMateria = new JLabel("Selecciona una Materia");
         lblSeleccionarMateria.setHorizontalAlignment(SwingConstants.CENTER);
-        lblSeleccionarMateria.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblSeleccionarMateria.setBounds(50, 30, 300, 30);
+        lblSeleccionarMateria.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        lblSeleccionarMateria.setToolTipText("Elije una opción");
+        lblSeleccionarMateria.setFont(new Font("Tahoma", Font.PLAIN, 25));
+        lblSeleccionarMateria.setBounds(189, 80, 306, 44);
         contentPane.add(lblSeleccionarMateria);
 
         // Lista de materias
         String[] materiasArray = materias.toArray(new String[0]);
         comboMaterias = new JComboBox<>(materiasArray);
-        comboMaterias.setBounds(100, 80, 200, 30);
+        comboMaterias.setBounds(189, 140, 306, 35);
         contentPane.add(comboMaterias);
 
         // Botón para ver notas
         JButton btnVerNotas = new JButton("Ver Notas");
         btnVerNotas.setForeground(Color.WHITE);
         btnVerNotas.setBackground(Color.BLACK);
-        btnVerNotas.setBounds(100, 130, 200, 30);
+        btnVerNotas.setBounds(189, 200, 306, 35);
         contentPane.add(btnVerNotas);
+
+        // Botón para regresar al menú principal
+        JButton btnRegresar = new JButton("Regresar");
+        btnRegresar.setForeground(Color.WHITE);
+        btnRegresar.setBackground(Color.BLACK);
+        btnRegresar.setBounds(189, 240, 306, 35);
+        contentPane.add(btnRegresar);
 
         // Acción para ver notas
         btnVerNotas.addActionListener(e -> {
@@ -54,6 +63,12 @@ public class VentanaSeleccionRegistroNotas extends JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Por favor, selecciona una materia.");
             }
+        });
+
+        // Acción para regresar al menú principal
+        btnRegresar.addActionListener(e -> {
+            new VentanaMenuPrincipal(materias, bancosPorTema, registroNotas, puntajesPracticas);  // Volver a la ventana principal
+            dispose();  // Cerrar la ventana actual
         });
 
         // Mostrar la ventana
@@ -68,6 +83,7 @@ public class VentanaSeleccionRegistroNotas extends JFrame {
         if (hayNotas) {
             JOptionPane.showMessageDialog(this, "Notas para " + materiaSeleccionada + ":\n" + notasTexto.toString());
             new VentanaRegistroNotas(registroNotas);
+            dispose();
         } else {
             JOptionPane.showMessageDialog(this, "No hay notas registradas para " + materiaSeleccionada + ".");
         }

@@ -6,6 +6,8 @@ import Codigo.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class VentanaEvaluacion extends JFrame {
 
@@ -17,21 +19,27 @@ public class VentanaEvaluacion extends JFrame {
     private JLabel lblEnunciado;
     private JButton btnSiguiente;
     private int indicePregunta;
-    private Evaluacion evaluacion;
+    private Evaluacion NuevaEvaluacion;
     private List<Pregunta> preguntas;
-    private int puntuacion;
-    private List<Nota> registroNotas;
+    private int NuevaPuntuacion;
+    private List<Puntajes> AUXPuntajesPracticas;
+    private Set<String> AUXmaterias;
+    private Map<String, BancoPreguntas> AUXbancosPorTema;
+    private List<Nota> NuevoRegistroNotas;
 
-    public VentanaEvaluacion(Evaluacion evaluacion, String nombreEstudiante, String tema, List<Nota> registroNotas) {
-        this.evaluacion = evaluacion;
-        this.preguntas = evaluacion.getBanco().getPreguntas();
+    public VentanaEvaluacion(Set<String> materias, Map<String, BancoPreguntas> bancosPorTema, List<Puntajes> puntajesPracticas, Evaluacion evaluacion, String nombreEstudiante, String tema, List<Nota> registroNotas) {
+    	this.NuevaEvaluacion = evaluacion;
+        this.preguntas = NuevaEvaluacion.getBanco().getPreguntas();
         this.indicePregunta = 0;
-        this.puntuacion = 0;
-        this.registroNotas = registroNotas;
+        this.NuevaPuntuacion = 0;
+        this.AUXPuntajesPracticas = puntajesPracticas;
+        this.AUXmaterias = materias; // Guardar materias
+        this.AUXbancosPorTema = bancosPorTema; // Guardar bancos de preguntas
+        this.NuevoRegistroNotas = registroNotas; // Guardar registro de notas
 
         setTitle("Evaluación de Estudiante");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 500, 400);
+        setBounds(100, 100, 700, 450);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -72,10 +80,13 @@ public class VentanaEvaluacion extends JFrame {
                         cargarPregunta(indicePregunta);
                     } else {
                     	int maxPuntuacion = preguntas.size();
-                        JOptionPane.showMessageDialog(contentPane, "Has terminado la evaluación.\nPuntuación: " + evaluacion.getPuntuacion() + "\nPuntuacion máxima: "+ maxPuntuacion);
-                        Nota nuevaNota = new Nota(nombreEstudiante, tema, evaluacion.getPuntuacion(), maxPuntuacion);
-                        registroNotas.add(nuevaNota);
-                        dispose();
+                        JOptionPane.showMessageDialog(contentPane, "Has terminado la evaluación.\nPuntuación: " + NuevaPuntuacion + "\nPuntuacion máxima: "+ maxPuntuacion);
+                        Nota nuevaNota = new Nota(nombreEstudiante, tema, NuevaPuntuacion, maxPuntuacion);
+                        NuevoRegistroNotas.add(nuevaNota);
+                        dispose(); // Cerrar la ventana de prácticas antes de abrir el menú principal
+                        
+                        // Aquí abrimos la ventana de menú principal después de que se haya cerrado la evaluación
+                        new VentanaMenuPrincipal(AUXmaterias, AUXbancosPorTema, NuevoRegistroNotas, AUXPuntajesPracticas);
                     }
                 }
             }
@@ -111,7 +122,7 @@ public class VentanaEvaluacion extends JFrame {
         }
 
         if (preguntaActual.esCorrecta(respuestaSeleccionada)) {
-            puntuacion++; // Aumentar la puntuación si la respuesta es correcta
+        	NuevaPuntuacion++; // Aumentar la puntuación si la respuesta es correcta
         }
     }
 }

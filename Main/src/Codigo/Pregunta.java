@@ -34,4 +34,8 @@ public class Pregunta {
     public void setRespuestaCorrecta(String respuestaCorrecta) {
         this.respuestaCorrecta = respuestaCorrecta;
     }
+
+	public String getRespuestaCorrecta() {
+		return respuestaCorrecta;
+	}
 }

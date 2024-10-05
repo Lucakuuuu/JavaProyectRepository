@@ -6,6 +6,8 @@ import Codigo.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class VentanaPracticas extends JFrame {
 
@@ -17,21 +19,27 @@ public class VentanaPracticas extends JFrame {
     private JLabel lblEnunciado;
     private JButton btnSiguiente;
     private int indicePregunta;
-    private Evaluacion evaluacion;
+    private Evaluacion NuevaEvaluacion;
     private List<Pregunta> preguntas;
-    private int puntuacion;
-    private List<Puntajes> puntajesPracticas;
+    private int NuevaPuntuacion;
+    private List<Puntajes> NuevoPuntajesPracticas;
+    private Set<String> AUXmaterias;
+    private Map<String, BancoPreguntas> AUXbancosPorTema;
+    private List<Nota> AUXregistroNotas;
 
-    public VentanaPracticas(Evaluacion evaluacion, String tema, List<Puntajes> puntajesPracticas) {
-        this.evaluacion = evaluacion;
-        this.preguntas = evaluacion.getBanco().getPreguntas();
+    public VentanaPracticas(Set<String> materias, Map<String, BancoPreguntas> bancosPorTema, List<Nota> registroNotas, Evaluacion evaluacion, String tema, List<Puntajes> puntajesPracticas) {
+        this.NuevaEvaluacion = evaluacion;
+        this.preguntas = NuevaEvaluacion.getBanco().getPreguntas();
         this.indicePregunta = 0;
-        this.puntuacion = 0;
-        this.puntajesPracticas = puntajesPracticas;
+        this.NuevaPuntuacion = 0;
+        this.NuevoPuntajesPracticas = puntajesPracticas;
+        this.AUXmaterias = materias; // Guardar materias
+        this.AUXbancosPorTema = bancosPorTema; // Guardar bancos de preguntas
+        this.AUXregistroNotas = registroNotas; // Guardar registro de notas
 
         setTitle("Práctica");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 500, 400);
+        setBounds(100, 100, 700, 450);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -49,7 +57,7 @@ public class VentanaPracticas extends JFrame {
         // Inicializar el grupo de opciones
         grupoOpciones = new ButtonGroup();
         opciones = new JRadioButton[4];
-        
+
         for (int i = 0; i < 4; i++) {
             opciones[i] = new JRadioButton();
             opciones[i].setBounds(20, 100 + (i * 30), 450, 30);
@@ -60,7 +68,7 @@ public class VentanaPracticas extends JFrame {
         btnSiguiente = new JButton("Siguiente");
         btnSiguiente.setBounds(150, 300, 100, 30);
         contentPane.add(btnSiguiente);
-        
+
         btnSiguiente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (grupoOpciones.getSelection() == null) {
@@ -71,21 +79,23 @@ public class VentanaPracticas extends JFrame {
                     if (indicePregunta < preguntas.size()) {
                         cargarPregunta(indicePregunta);
                     } else {
-                    	int maxPuntuacion = preguntas.size();
-                        JOptionPane.showMessageDialog(contentPane, "Has terminado la evaluación.\nPuntuación: " + puntuacion + "\nPuntuacion máxima: "+ maxPuntuacion);
-                        Puntajes nuevoPuntaje = new Puntajes(tema, puntuacion, maxPuntuacion);
-                        puntajesPracticas.add(nuevoPuntaje);
-                        dispose();
+                        int maxPuntuacion = preguntas.size();
+                        JOptionPane.showMessageDialog(contentPane, "Has terminado la evaluación.\nPuntuación: " + NuevaPuntuacion + "\nPuntuacion máxima: " + maxPuntuacion);
+                        Puntajes nuevoPuntaje = new Puntajes(tema, NuevaPuntuacion, maxPuntuacion);
+                        NuevoPuntajesPracticas.add(nuevoPuntaje);
+                        dispose(); // Cerrar la ventana de prácticas antes de abrir el menú principal
+                        
+                        // Aquí abrimos la ventana de menú principal después de que se haya cerrado la evaluación
+                        new VentanaMenuPrincipal(AUXmaterias, AUXbancosPorTema, AUXregistroNotas, NuevoPuntajesPracticas);
                     }
                 }
             }
         });
-
         cargarPregunta(indicePregunta);
         setVisible(true);
     }
 
-	private void cargarPregunta(int indice) {
+    private void cargarPregunta(int indice) {
         Pregunta preguntaActual = preguntas.get(indice);
 
         lblNumeroPregunta.setText("Pregunta " + (indice + 1));
@@ -111,7 +121,7 @@ public class VentanaPracticas extends JFrame {
         }
 
         if (preguntaActual.esCorrecta(respuestaSeleccionada)) {
-            puntuacion++; // Aumentar la puntuación si la respuesta es correcta
+            NuevaPuntuacion++; // Aumentar la puntuación si la respuesta es correcta
         }
     }
 }

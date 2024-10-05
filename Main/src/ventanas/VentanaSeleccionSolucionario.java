@@ -1,20 +1,26 @@
 package ventanas;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import Codigo.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import Codigo.*;
 
-public class VentanaSeleccionPracticas extends JFrame {
-
+public class VentanaSeleccionSolucionario extends JFrame {  // Extender de JFrame
+	
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
 
-    public VentanaSeleccionPracticas(Set<String> materias, Map<String, BancoPreguntas> bancosPorTema, List<Nota> registroNotas, List<Puntajes> puntajesPracticas) {
-        setTitle("Iniciar Práctica");
+    public VentanaSeleccionSolucionario(Set<String> materias, Map<String, BancoPreguntas> bancosPorTema, List<Nota> registroNotas, List<Puntajes> puntajesPracticas) {
+        setTitle("Ver Solucionario");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 700, 450); // Ajustar para tener espacio para los botones adicionales
         contentPane = new JPanel();
@@ -36,15 +42,15 @@ public class VentanaSeleccionPracticas extends JFrame {
         comboMaterias.setBounds(100, 80, 200, 30);
         contentPane.add(comboMaterias);
 
-        // Botón para iniciar la práctica
-        JButton btnIniciarPractica = new JButton("Iniciar Práctica");
-        btnIniciarPractica.setForeground(Color.WHITE);
-        btnIniciarPractica.setBackground(Color.BLACK);
-        btnIniciarPractica.setBounds(100, 150, 200, 30);
-        contentPane.add(btnIniciarPractica);
+        // Botón para ver el solucionario
+        JButton btnVerSolucionario = new JButton("Ver Solucionario");  // Cambiado el texto del botón
+        btnVerSolucionario.setForeground(Color.WHITE);
+        btnVerSolucionario.setBackground(Color.BLACK);
+        btnVerSolucionario.setBounds(100, 150, 200, 30);
+        contentPane.add(btnVerSolucionario);
 
         // Botón para regresar al menú de prácticas
-        JButton btnRegresarMenuPracticas = new JButton("Regresar al Menú de Prácticas");
+        JButton btnRegresarMenuPracticas = new JButton("Regresar al Menú Extras");
         btnRegresarMenuPracticas.setForeground(Color.WHITE);
         btnRegresarMenuPracticas.setBackground(Color.BLACK);
         btnRegresarMenuPracticas.setBounds(100, 190, 200, 30); // Añadido debajo del botón anterior
@@ -52,14 +58,12 @@ public class VentanaSeleccionPracticas extends JFrame {
 
         setVisible(true);
 
-        // Acción al presionar el botón de iniciar práctica
-        btnIniciarPractica.addActionListener(e -> {
+        // Acción al presionar el botón de ver solucionario
+        btnVerSolucionario.addActionListener(e -> {
             String materiaSeleccionada = (String) comboMaterias.getSelectedItem();
             BancoPreguntas bancoSeleccionado = bancosPorTema.get(materiaSeleccionada);
-            Evaluacion evaluacion = new Evaluacion(bancoSeleccionado);
-            JOptionPane.showMessageDialog(this, "Iniciando Práctica de " + materiaSeleccionada);
-            new VentanaPracticas(materias, bancosPorTema, registroNotas, evaluacion, materiaSeleccionada, puntajesPracticas);
-            dispose(); // Cerrar esta ventana después de iniciar la práctica
+            new VentanaSolucionario(materias, bancosPorTema, registroNotas, puntajesPracticas, materiaSeleccionada, bancoSeleccionado);  // Mostrar el solucionario
+            dispose(); // Cerrar esta ventana después de mostrar el solucionario
         });
 
         // Acción al presionar el botón de regresar al menú de prácticas

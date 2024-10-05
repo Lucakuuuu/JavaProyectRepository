@@ -66,15 +66,23 @@ public class VentanaMenuPracticas extends JFrame {
 		setVisible(true);
 
 		// Acción para realizar una práctica
-		btnRealizarPractica.addActionListener(e -> new VentanaSeleccionPracticas(materias, bancosPorTema, puntajesPracticas));
+		btnRealizarPractica.addActionListener(e -> {
+				new VentanaSeleccionPracticas(materias, bancosPorTema, registroNotas, puntajesPracticas);
+				dispose();
+			}
+		);
 
 		// Acción para ver puntajes obtenidos
-		btnVerPuntajes.addActionListener(e -> new VentanaPuntajes());
+		btnVerPuntajes.addActionListener(e -> {
+				new VentanaPuntajes(materias, bancosPorTema, registroNotas, puntajesPracticas);
+				dispose();
+			}
+		);
 		
 		// Acción para volver al menú principal
 		btnVolver.addActionListener(e -> {
-			setVisible(false);
-			new VentanaMenuPrincipal(materias, bancosPorTema, registroNotas, puntajesPracticas);
+				new VentanaMenuPrincipal(materias, bancosPorTema, registroNotas, puntajesPracticas);
+				dispose();
 			}
 		);
 	}

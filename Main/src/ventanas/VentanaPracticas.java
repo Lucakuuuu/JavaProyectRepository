@@ -1,81 +1,117 @@
 package ventanas;
 
-import java.awt.*;
-
 import javax.swing.*;
-import javax.swing.border.*;
-
+import javax.swing.border.EmptyBorder;
 import Codigo.*;
-
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 public class VentanaPracticas extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private JRadioButton[] opciones; // Arreglo para las opciones
+    private ButtonGroup grupoOpciones;
+    private JLabel lblNumeroPregunta;
+    private JLabel lblEnunciado;
+    private JButton btnSiguiente;
+    private int indicePregunta;
+    private Evaluacion evaluacion;
+    private List<Pregunta> preguntas;
+    private int puntuacion;
+    private List<Puntajes> puntajesPracticas;
 
-	/**
-	 * Create the frame.
-	 */
-	public VentanaPracticas() {
-		setTitle("Menú de Extras");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 700, 450);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+    public VentanaPracticas(Evaluacion evaluacion, String tema, List<Puntajes> puntajesPracticas) {
+        this.evaluacion = evaluacion;
+        this.preguntas = evaluacion.getBanco().getPreguntas();
+        this.indicePregunta = 0;
+        this.puntuacion = 0;
+        this.puntajesPracticas = puntajesPracticas;
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		// Etiqueta de bienvenida
-		JLabel lblPracticas = new JLabel("Seleccione una Opción");
-		lblPracticas.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPracticas.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblPracticas.setBounds(130, 50, 420, 44);
-		contentPane.add(lblPracticas);
-		
-		// Botón "Realizar una práctica"
-		JButton btnRealizarPractica = new JButton("Realizar una práctica");
-		btnRealizarPractica.setForeground(new Color(255, 255, 255));
-		btnRealizarPractica.setBackground(Color.BLACK);
-		btnRealizarPractica.setBounds(189, 120, 306, 30);
-		contentPane.add(btnRealizarPractica);
-		
-		// Botón "Ver puntajes obtenidos"
-		JButton btnVerPuntajes = new JButton("Ver puntajes obtenidos");
-		btnVerPuntajes.setForeground(new Color(255, 255, 255));
-		btnVerPuntajes.setBackground(Color.BLACK);
-		btnVerPuntajes.setBounds(189, 180, 306, 30);
-		contentPane.add(btnVerPuntajes);
-		
-		// Botón "Volver al Menú Principal"
-		JButton btnVolver = new JButton("Volver al Menú Principal");
-		btnVolver.setForeground(new Color(255, 255, 255));
-		btnVolver.setBackground(Color.BLACK);
-		btnVolver.setBounds(189, 240, 306, 30);
-		contentPane.add(btnVolver);
-		
-		setVisible(true);
+        setTitle("Práctica");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setBounds(100, 100, 500, 400);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
 
-		// Acción para realizar una práctica
-		btnRealizarPractica.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new VentanaSeleccionMaterias(); // Abrir nueva ventana para seleccionar materia
-			}
-		});
+        // Inicialización de las etiquetas y botones
+        lblNumeroPregunta = new JLabel();
+        lblNumeroPregunta.setBounds(20, 20, 200, 30);
+        contentPane.add(lblNumeroPregunta);
 
-		// Acción para ver puntajes obtenidos
-		btnVerPuntajes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new VentanaPuntajes(); // Abrir nueva ventana para ver los puntajes
-			}
-		});
-		
-		// Acción para volver al menú principal
-		btnVolver.addActionListener(e -> {
-			setVisible(false);
-			new VentanaPrincipal(null, null); // Vuelve a mostrar la ventana principal
-		});
-	}
+        lblEnunciado = new JLabel();
+        lblEnunciado.setBounds(20, 60, 450, 30);
+        contentPane.add(lblEnunciado);
+
+        // Inicializar el grupo de opciones
+        grupoOpciones = new ButtonGroup();
+        opciones = new JRadioButton[4];
+        
+        for (int i = 0; i < 4; i++) {
+            opciones[i] = new JRadioButton();
+            opciones[i].setBounds(20, 100 + (i * 30), 450, 30);
+            grupoOpciones.add(opciones[i]);
+            contentPane.add(opciones[i]);
+        }
+
+        btnSiguiente = new JButton("Siguiente");
+        btnSiguiente.setBounds(150, 300, 100, 30);
+        contentPane.add(btnSiguiente);
+        
+        btnSiguiente.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (grupoOpciones.getSelection() == null) {
+                    JOptionPane.showMessageDialog(contentPane, "Por favor, selecciona una respuesta.");
+                } else {
+                    registrarRespuesta(indicePregunta);
+                    indicePregunta++;
+                    if (indicePregunta < preguntas.size()) {
+                        cargarPregunta(indicePregunta);
+                    } else {
+                    	int maxPuntuacion = preguntas.size();
+                        JOptionPane.showMessageDialog(contentPane, "Has terminado la evaluación.\nPuntuación: " + puntuacion + "\nPuntuacion máxima: "+ maxPuntuacion);
+                        Puntajes nuevoPuntaje = new Puntajes(tema, puntuacion, maxPuntuacion);
+                        puntajesPracticas.add(nuevoPuntaje);
+                        dispose();
+                    }
+                }
+            }
+        });
+
+        cargarPregunta(indicePregunta);
+        setVisible(true);
+    }
+
+	private void cargarPregunta(int indice) {
+        Pregunta preguntaActual = preguntas.get(indice);
+
+        lblNumeroPregunta.setText("Pregunta " + (indice + 1));
+        lblEnunciado.setText(preguntaActual.getEnunciado());
+
+        String[] respuestas = preguntaActual.getRespuestas();
+        for (int i = 0; i < 4; i++) {
+            opciones[i].setText(respuestas[i]);
+        }
+
+        grupoOpciones.clearSelection();
+    }
+
+    private void registrarRespuesta(int indicePregunta) {
+        Pregunta preguntaActual = preguntas.get(indicePregunta);
+
+        String respuestaSeleccionada = null;
+        for (int i = 0; i < 4; i++) {
+            if (opciones[i].isSelected()) {
+                respuestaSeleccionada = opciones[i].getText();
+                break;
+            }
+        }
+
+        if (preguntaActual.esCorrecta(respuestaSeleccionada)) {
+            puntuacion++; // Aumentar la puntuación si la respuesta es correcta
+        }
+    }
 }

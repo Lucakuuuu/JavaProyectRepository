@@ -4,9 +4,12 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import Codigo.BancoPreguntas;
 import Codigo.Nota;
+import Codigo.Puntajes;
 
 public class VentanaSeleccionRegistroNotas extends JFrame {
 
@@ -14,7 +17,7 @@ public class VentanaSeleccionRegistroNotas extends JFrame {
     private JPanel contentPane;
     private JComboBox<String> comboMaterias;
 
-    public VentanaSeleccionRegistroNotas(Set<String> materias, List<Nota> registroNotas) {
+    public VentanaSeleccionRegistroNotas(Set<String> materias, Map<String, BancoPreguntas> bancosPorTema, List<Nota> registroNotas, List<Puntajes> puntajesPracticas) {
         setTitle("Seleccionar Materia para Ver Notas");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 400, 250);

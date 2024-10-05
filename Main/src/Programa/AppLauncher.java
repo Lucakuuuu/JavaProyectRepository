@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 import Codigo.*;
-import ventanas.VentanaPrincipal;
+import ventanas.VentanaMenuPrincipal;
 
 public class AppLauncher {
     public static void main(String[] args) {
@@ -27,7 +27,7 @@ public class AppLauncher {
 	    while(!salir)
 	    {
 	    	//Menus.menuPrincipal();
-	    	new VentanaPrincipal(materias, bancosPorTema, registroNotas);
+	    	new VentanaMenuPrincipal(materias, bancosPorTema, registroNotas, puntajesPracticas);
 	    	salir = true;
 	    }
     }

@@ -16,7 +16,7 @@ public class VentanaSeleccionEvaluacion extends JFrame {
     private JTextField txtNombreEstudiante;
     Scanner entrada = new Scanner(System.in);
 
-    public VentanaSeleccionEvaluacion(Set<String> materias, Map<String, BancoPreguntas> bancosPorTema, List<Nota> registroNotas) {
+    public VentanaSeleccionEvaluacion(Set<String> materias, Map<String, BancoPreguntas> bancosPorTema, List<Nota> registroNotas, List<Puntajes> puntajesPracticas) {
         setTitle("Iniciar Evaluación");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 400, 300);

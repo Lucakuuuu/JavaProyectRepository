@@ -91,8 +91,4 @@ public class VentanaRegistroNotas extends JFrame {
             contentPane.repaint();
         });
     }
-
-    public static void main(String[] args) {
-        new VentanaRegistroNotas();
-    }
 }

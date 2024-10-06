@@ -1,4 +1,4 @@
-package ventanas;
+package VentanasDeAcciones;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import Codigo.*;
+import VentanasDeMenus.VentanaMenuExtras;
 
 public class VentanaModificarPregunta extends JFrame {
 

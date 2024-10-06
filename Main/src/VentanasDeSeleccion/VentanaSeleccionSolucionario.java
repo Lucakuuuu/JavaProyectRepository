@@ -1,4 +1,4 @@
-package ventanas;
+package VentanasDeSeleccion;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import Codigo.*;
+import VentanasDeAcciones.VentanaSolucionario;
+import VentanasDeMenus.VentanaMenuExtras;
 
 public class VentanaSeleccionSolucionario extends JFrame {  // Extender de JFrame
 	
@@ -32,28 +34,30 @@ public class VentanaSeleccionSolucionario extends JFrame {  // Extender de JFram
         // Etiqueta para seleccionar materia
         JLabel lblSeleccionarMateria = new JLabel("Selecciona una Materia");
         lblSeleccionarMateria.setHorizontalAlignment(SwingConstants.CENTER);
-        lblSeleccionarMateria.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblSeleccionarMateria.setBounds(50, 30, 300, 30);
+        lblSeleccionarMateria.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        lblSeleccionarMateria.setToolTipText("Elije una opción");
+        lblSeleccionarMateria.setFont(new Font("Tahoma", Font.PLAIN, 25));
+        lblSeleccionarMateria.setBounds(189, 80, 306, 44);
         contentPane.add(lblSeleccionarMateria);
 
         // ComboBox para seleccionar la materia
         String[] materiasArray = materias.toArray(new String[0]);
         JComboBox<String> comboMaterias = new JComboBox<>(materiasArray);
-        comboMaterias.setBounds(100, 80, 200, 30);
+        comboMaterias.setBounds(189, 140, 306, 44);
         contentPane.add(comboMaterias);
 
         // Botón para ver el solucionario
         JButton btnVerSolucionario = new JButton("Ver Solucionario");  // Cambiado el texto del botón
         btnVerSolucionario.setForeground(Color.WHITE);
         btnVerSolucionario.setBackground(Color.BLACK);
-        btnVerSolucionario.setBounds(100, 150, 200, 30);
+        btnVerSolucionario.setBounds(189, 200, 306, 35);
         contentPane.add(btnVerSolucionario);
 
         // Botón para regresar al menú de prácticas
         JButton btnRegresarMenuPracticas = new JButton("Regresar al Menú Extras");
         btnRegresarMenuPracticas.setForeground(Color.WHITE);
         btnRegresarMenuPracticas.setBackground(Color.BLACK);
-        btnRegresarMenuPracticas.setBounds(100, 190, 200, 30); // Añadido debajo del botón anterior
+        btnRegresarMenuPracticas.setBounds(189, 240, 306, 35); // Añadido debajo del botón anterior
         contentPane.add(btnRegresarMenuPracticas);
 
         setVisible(true);
@@ -68,7 +72,7 @@ public class VentanaSeleccionSolucionario extends JFrame {  // Extender de JFram
 
         // Acción al presionar el botón de regresar al menú de prácticas
         btnRegresarMenuPracticas.addActionListener(e -> {
-            new VentanaMenuPracticas(materias, bancosPorTema, registroNotas, puntajesPracticas); // Abrir el menú de prácticas
+            new VentanaMenuExtras(materias, bancosPorTema, registroNotas, puntajesPracticas); // Abrir el menú de prácticas
             dispose(); // Cerrar esta ventana
         });
     }

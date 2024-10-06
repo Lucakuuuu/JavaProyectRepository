@@ -1,16 +1,18 @@
-package ventanas;
+package VentanasDeMenus;
 
 import java.awt.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import javax.swing.*;
 import javax.swing.border.*;
-
 import Codigo.BancoPreguntas;
 import Codigo.Nota;
 import Codigo.Puntajes;
+
+import VentanasDeSeleccion.*;
+import VentanasDeMenus.*;
+import VentanasDeAcciones.*;
 
 public class VentanaMenuPrincipal extends JFrame {
 

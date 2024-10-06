@@ -1,8 +1,11 @@
-package ventanas;
+package VentanasDeSeleccion;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import Codigo.*;
+import VentanasDeAcciones.VentanaEvaluacion;
+import VentanasDeMenus.VentanaMenuPrincipal;
+
 import java.awt.*;
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package ventanas;
+package VentanasDeSeleccion;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -6,10 +6,13 @@ import java.awt.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.ArrayList;
 
 import Codigo.BancoPreguntas;
 import Codigo.Nota;
 import Codigo.Puntajes;
+import VentanasDeAcciones.VentanaRegistroNotas;
+import VentanasDeMenus.VentanaMenuPrincipal;
 
 public class VentanaSeleccionRegistroNotas extends JFrame {
 
@@ -77,15 +80,29 @@ public class VentanaSeleccionRegistroNotas extends JFrame {
 
     private void mostrarNotas(String materiaSeleccionada, List<Nota> registroNotas) {
         StringBuilder notasTexto = new StringBuilder();
-        boolean hayNotas = false;
+        List<Nota> notasFiltradas = new ArrayList<>();
+        
+        // Filtramos las notas para la materia seleccionada
+        for (Nota nota : registroNotas) {
+            if (materiaSeleccionada.equals(nota.getTema())) {
+                notasFiltradas.add(nota);
+            }
+        }
 
-        // Si hay notas, mostrar en un cuadro de diálogo
-        if (hayNotas) {
-            JOptionPane.showMessageDialog(this, "Notas para " + materiaSeleccionada + ":\n" + notasTexto.toString());
-            new VentanaRegistroNotas(registroNotas);
-            dispose();
-        } else {
+        if (notasFiltradas.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No hay notas registradas para " + materiaSeleccionada + ".");
+        } else {
+            // Crear el texto para las notas
+            for (Nota nota : notasFiltradas) {
+                notasTexto.append("---------------- o -----------------\n")
+                          .append(nota.toString())
+                          .append("\n");
+            }
+            // Mostrar las notas en un JOptionPane
+            JOptionPane.showMessageDialog(this, "Notas para " + materiaSeleccionada + ":\n" + notasTexto.toString());
+            
+            // Opcionalmente, puedes abrir una ventana con el registro completo
+            // new VentanaRegistroNotas(registroNotas);
         }
     }
 }

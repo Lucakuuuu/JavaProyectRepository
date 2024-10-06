@@ -1,10 +1,12 @@
-package ventanas;
+package VentanasDeAcciones;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import Codigo.BancoPreguntas;
 import Codigo.Nota;
 import Codigo.Puntajes;
+import VentanasDeMenus.VentanaMenuExtras;
+
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;

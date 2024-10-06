@@ -1,4 +1,4 @@
-package ventanas;
+package VentanasDeAcciones;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

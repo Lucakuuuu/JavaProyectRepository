@@ -1,30 +1,22 @@
-package ventanas;
+package VentanasDeMenus;
 
 import java.awt.*;
 
 import javax.swing.*;
 import javax.swing.border.*;
-
 import Codigo.*;
 
-import java.awt.event.ActionListener;
+import VentanasDeSeleccion.*;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.awt.event.ActionEvent;
 
 public class VentanaMenuPracticas extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-	/**
-	 * Create the frame.
-	 * @param puntajesPracticas 
-	 * @param bancosPorTema 
-	 * @param materias 
-	 * @param registroNotas 
-	 */
 	public VentanaMenuPracticas(Set<String> materias, Map<String, BancoPreguntas> bancosPorTema, List<Nota> registroNotas, List<Puntajes> puntajesPracticas) {
 		setTitle("Menú de Extras");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,7 +66,7 @@ public class VentanaMenuPracticas extends JFrame {
 
 		// Acción para ver puntajes obtenidos
 		btnVerPuntajes.addActionListener(e -> {
-				new VentanaPuntajes(materias, bancosPorTema, registroNotas, puntajesPracticas);
+				new VentanaSeleccionPuntajes(materias, bancosPorTema, registroNotas, puntajesPracticas);
 				dispose();
 			}
 		);

@@ -1,15 +1,18 @@
-package ventanas;
+package VentanasDeMenus;
 
 import java.awt.*;
 
 import javax.swing.*;
 import javax.swing.border.*;
 import Codigo.*;
-import java.awt.event.ActionListener;
+
+import VentanasDeSeleccion.*;
+import VentanasDeMenus.*;
+import VentanasDeAcciones.*;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.awt.event.ActionEvent;
 
 public class VentanaMenuEditorPreguntas extends JFrame {
 

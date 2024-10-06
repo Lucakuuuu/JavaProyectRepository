@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-
 public class Main 
 {
 	public static void main(String[] args) 
@@ -31,23 +30,25 @@ public class Main
 	        {
 	        // EVALUACION
             case 1:
-            	Menus.menuEvaluacion(materias);
-            	String temaSeleccionado1 = entrada.next();
-	            if(!temaSeleccionado1.equals("Salir")) {
-	            	BancoPreguntas bancoSeleccionado = bancosPorTema.get(temaSeleccionado1);
-			        if (bancoSeleccionado != null){
-			        	System.out.println("Ingrese el nombre del estudiante: ");
-			        	String estudiante = entrada.next();
-			            Evaluacion evaluacion = new Evaluacion(bancoSeleccionado);
-			           	evaluacion.realizarEvaluacion(entrada, bancosPorTema);
-			           	Nota nuevaNota = new Nota(estudiante, temaSeleccionado1, evaluacion.getPuntuacion(), bancoSeleccionado.getPreguntas().size());
-			           	registroNotas.add(nuevaNota);
-			           	System.out.println("Evaluación registrada correctamente.\n");
-			        }
-			        else System.out.println("Tema no encontrado.\n");
-	            }
-	            else System.out.println("Volviendo... \n");
-	            break;
+            	 Menus.menuEvaluacion(materias);
+                    String temaSeleccionado1 = entrada.next();
+                    if (!temaSeleccionado1.equals("Salir")) {
+                        BancoPreguntas bancoSeleccionado = bancosPorTema.get(temaSeleccionado1);
+                        if (bancoSeleccionado != null) {
+                            System.out.println("Ingrese el nombre del estudiante: ");
+                            String estudiante = entrada.next();
+                            EvaluacionFormal evaluacionFormal = new EvaluacionFormal(bancoSeleccionado);
+                            evaluacionFormal.realizarEvaluacionFormal(entrada);
+                            Nota nuevaNota = new Nota(estudiante, temaSeleccionado1, evaluacionFormal.getPuntuacion(), bancoSeleccionado.getPreguntas().size());
+                            registroNotas.add(nuevaNota);
+                            System.out.println("Evaluación registrada correctamente.\n");
+                        } else {
+                            System.out.println("Tema no encontrado.\n");
+                        }
+                    } else {
+                        System.out.println("Volviendo...\n");
+                    }
+                    break;
 
 	            case 2:
 	            	// REGISTRO DE NOTAS
@@ -78,60 +79,23 @@ public class Main
 
 	            case 3:
 	            	// PRACTICA
-	            	int salida = 0;
-	            	while(salida == 0) {
-	            		Menus.menuPractica();
-		            	int opcion2 = entrada.nextInt();
-		            	switch(opcion2){
-		            	case 1:
-		            		Menus.subMenuPractica(materias);
-			                String temaSeleccionado3 = entrada.next();
-			                if(!temaSeleccionado3.equals("Salir")) {
-			                	BancoPreguntas materiaSeleccionado = bancosPorTema.get(temaSeleccionado3);
-				                if (materiaSeleccionado != null){
-						           	Evaluacion evaluacion = new Evaluacion(materiaSeleccionado);
-						           	evaluacion.realizarPractica(entrada, bancosPorTema);
-						           	Puntajes puntaje = new Puntajes(temaSeleccionado3, evaluacion.getPuntuacion(), materiaSeleccionado.getPreguntas().size());
-						           	puntajesPracticas.add(puntaje);
-						           	System.out.println("Práctica registrada correctamente.\n");
-				                }
-					            else System.out.println("Materia no encontrada.\n");
-			                }
-			                else System.out.println("Volviendo... ");
-		            		break;
-		            		
-		            	case 2:
-			            	if(puntajesPracticas.isEmpty()) System.out.println("No hay puntajes registrados.");
-			            	else {
-			            		int salida1 = 0;
-				            	while(salida1 == 0) {
-				            		Menus.subMenuRegistroPuntajes(materias);
-					            	String temaSeleccionado5 = entrada.next();
-					                if(!temaSeleccionado5.equals("Salir")) {
-					                	List<Puntajes> puntajes = new ArrayList<>();
-					                	for (Puntajes puntaje : puntajesPracticas) if(temaSeleccionado5.equals(puntaje.getMateria())) puntajes.add(puntaje);
-					                	if(puntajes.size() == 0) System.out.println("No hay notas registradas para este tema...");
-					                	else
-					                		for(Puntajes puntaje : puntajes)
-					                			System.out.println("---------------- o -----------------\n"
-						            					+ puntaje);
-					                }
-					                else {
-					                	System.out.println("Volviendo...");
-					            		salida1 = 1;
-					                }
-				            	}
-			            	}
-		            		break;
-		            		
-		            	case 3:
-		            		System.out.println("Volviendo al menú principal...\n");
-		            		salida = 1;
-		            		break;
-		            	}
-	            	}
-	            	LimpiarPantalla.limpiarPantalla();
-	            	break;
+	            	Menus.menuPractica();
+                    String temaSeleccionado3 = entrada.next();
+                    if (!temaSeleccionado3.equals("Salir")) {
+                        BancoPreguntas materiaSeleccionado = bancosPorTema.get(temaSeleccionado3);
+                        if (materiaSeleccionado != null) {
+                            Practica practica = new Practica(materiaSeleccionado);
+                            practica.realizarPractica(entrada);
+                            Puntajes puntaje = new Puntajes(temaSeleccionado3, practica.getPuntuacion(), materiaSeleccionado.getPreguntas().size());
+                            puntajesPracticas.add(puntaje);
+                            System.out.println("Práctica registrada correctamente.\n");
+                        } else {
+                            System.out.println("Materia no encontrada.\n");
+                        }
+                    } else {
+                        System.out.println("Volviendo...\n");
+                    }
+                    break;
 
 	            case 4:
 	            	// EXTRAS
@@ -142,14 +106,18 @@ public class Main
 		            	switch(opcion2) {
 			            // MOSTRAR SOLUCIONARIO	
 		            	case 1:
-			            		Menus.menuSolucionario(materias);
-				                String temaSeleccionado4 = entrada.next();
-				                if(!temaSeleccionado4.equals("Salir")) {
-					            	String rutaCSV = "src/Preguntas/" + temaSeleccionado4 + ".csv";
-					            	archivo.leerArchivoCSV(rutaCSV);
-				                }
-				                else System.out.println("Volviendo... \n");
-				            	break;
+			            		 Menus.menuSolucionario(materias);
+                                String temaSeleccionado4 = entrada.next();
+                                if (!temaSeleccionado4.equals("Salir")) {
+                                    BancoPreguntas bancoSeleccionado = bancosPorTema.get(temaSeleccionado4);
+                                    archivo.leerArchivoCSV("src/Preguntas/" + temaSeleccionado4 + ".csv");
+                                    
+                                    // Llamar a la clase GeneradorSolucionario para crear el archivo .txt
+                                    GeneradorSolucionario.generarSolucionario(bancoSeleccionado, temaSeleccionado4);
+                                } else {
+                                    System.out.println("Volviendo... \n");
+                                }
+                                break;
 				            	
 			            // EDITOR DE PREGUNTAS	
 		            	case 2:

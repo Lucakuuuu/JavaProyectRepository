@@ -1,15 +1,17 @@
-package ventanas;
+package VentanasDeAcciones;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import Codigo.*;
+import VentanasDeMenus.VentanaMenuPrincipal;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class VentanaEvaluacion extends JFrame {
+public class VentanaPracticas extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
@@ -18,26 +20,25 @@ public class VentanaEvaluacion extends JFrame {
     private JLabel lblNumeroPregunta;
     private JLabel lblEnunciado;
     private JButton btnSiguiente;
+    
     private int indicePregunta;
-    private Evaluacion NuevaEvaluacion;
+    private Evaluacion evaluacion;
     private List<Pregunta> preguntas;
-    private int NuevaPuntuacion;
-    private List<Puntajes> AUXPuntajesPracticas;
-    private Set<String> AUXmaterias;
-    private Map<String, BancoPreguntas> AUXbancosPorTema;
-    private List<Nota> NuevoRegistroNotas;
+    private List<Puntajes> puntajesPracticas;
+    private Set<String> materias;
+    private Map<String, BancoPreguntas> bancosPorTema;
+    private List<Nota> registroNotas;
 
-    public VentanaEvaluacion(Set<String> materias, Map<String, BancoPreguntas> bancosPorTema, List<Puntajes> puntajesPracticas, Evaluacion evaluacion, String nombreEstudiante, String tema, List<Nota> registroNotas) {
-    	this.NuevaEvaluacion = evaluacion;
-        this.preguntas = NuevaEvaluacion.getBanco().getPreguntas();
+    public VentanaPracticas(Set<String> materias, Map<String, BancoPreguntas> bancosPorTema, List<Nota> registroNotas, Evaluacion evaluacion, String tema, List<Puntajes> puntajesPracticas) {
+        this.evaluacion = evaluacion;
+        this.preguntas = evaluacion.getBanco().getPreguntas();
         this.indicePregunta = 0;
-        this.NuevaPuntuacion = 0;
-        this.AUXPuntajesPracticas = puntajesPracticas;
-        this.AUXmaterias = materias; // Guardar materias
-        this.AUXbancosPorTema = bancosPorTema; // Guardar bancos de preguntas
-        this.NuevoRegistroNotas = registroNotas; // Guardar registro de notas
+        this.puntajesPracticas = puntajesPracticas;
+        this.materias = materias; // Guardar materias
+        this.bancosPorTema = bancosPorTema; // Guardar bancos de preguntas
+        this.registroNotas = registroNotas; // Guardar registro de notas
 
-        setTitle("Evaluación de Estudiante");
+        setTitle("Práctica");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 700, 450);
         contentPane = new JPanel();
@@ -57,7 +58,7 @@ public class VentanaEvaluacion extends JFrame {
         // Inicializar el grupo de opciones
         grupoOpciones = new ButtonGroup();
         opciones = new JRadioButton[4];
-        
+
         for (int i = 0; i < 4; i++) {
             opciones[i] = new JRadioButton();
             opciones[i].setBounds(20, 100 + (i * 30), 450, 30);
@@ -66,9 +67,9 @@ public class VentanaEvaluacion extends JFrame {
         }
 
         btnSiguiente = new JButton("Siguiente");
-        btnSiguiente.setBounds(150, 300, 100, 30);
+        btnSiguiente.setBounds(189, 300, 306, 30);
         contentPane.add(btnSiguiente);
-        
+
         btnSiguiente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (grupoOpciones.getSelection() == null) {
@@ -79,19 +80,18 @@ public class VentanaEvaluacion extends JFrame {
                     if (indicePregunta < preguntas.size()) {
                         cargarPregunta(indicePregunta);
                     } else {
-                    	int maxPuntuacion = preguntas.size();
-                        JOptionPane.showMessageDialog(contentPane, "Has terminado la evaluación.\nPuntuación: " + NuevaPuntuacion + "\nPuntuacion máxima: "+ maxPuntuacion);
-                        Nota nuevaNota = new Nota(nombreEstudiante, tema, NuevaPuntuacion, maxPuntuacion);
-                        NuevoRegistroNotas.add(nuevaNota);
+                        int maxPuntuacion = preguntas.size();
+                        JOptionPane.showMessageDialog(contentPane, "Has terminado la evaluación.\nPuntuación: " + evaluacion.getPuntuacion() + "\nPuntuacion máxima: " + maxPuntuacion);
+                        Puntajes nuevoPuntaje = new Puntajes(tema, evaluacion.getPuntuacion(), maxPuntuacion);
+                        puntajesPracticas.add(nuevoPuntaje);
                         dispose(); // Cerrar la ventana de prácticas antes de abrir el menú principal
                         
                         // Aquí abrimos la ventana de menú principal después de que se haya cerrado la evaluación
-                        new VentanaMenuPrincipal(AUXmaterias, AUXbancosPorTema, NuevoRegistroNotas, AUXPuntajesPracticas);
+                        new VentanaMenuPrincipal(materias, bancosPorTema, registroNotas, puntajesPracticas);
                     }
                 }
             }
         });
-
         cargarPregunta(indicePregunta);
         setVisible(true);
     }
@@ -113,16 +113,19 @@ public class VentanaEvaluacion extends JFrame {
     private void registrarRespuesta(int indicePregunta) {
         Pregunta preguntaActual = preguntas.get(indicePregunta);
 
+        // Crear un arreglo de letras para las opciones
+        String[] letrasOpciones = {"A", "B", "C", "D"};
         String respuestaSeleccionada = null;
+
+        // Buscar cuál opción fue seleccionada y asignar la letra correspondiente
         for (int i = 0; i < 4; i++) {
             if (opciones[i].isSelected()) {
-                respuestaSeleccionada = opciones[i].getText();
+                respuestaSeleccionada = letrasOpciones[i]; // Asignar la letra (A, B, C, o D)
                 break;
             }
         }
-
         if (preguntaActual.esCorrecta(respuestaSeleccionada)) {
-        	NuevaPuntuacion++; // Aumentar la puntuación si la respuesta es correcta
+            evaluacion.incrementarPuntuacion(); // Aumentar la puntuación si la respuesta es correcta
         }
     }
 }

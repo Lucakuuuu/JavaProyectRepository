@@ -1,5 +1,44 @@
 Solucionario para el tema: Matematicas
 
-Pregunta: ¿Cuanto es 5 + 5?
-Respuesta correcta: 10
+Pregunta: Cual es el valor de x si 2x + 3 = 7?
+Respuesta correcta: x = 2
+---------------------------------------
+Pregunta: Cual es el perimetro de un cuadrado con lado de 5 cm?
+Respuesta correcta: 20 cm
+---------------------------------------
+Pregunta: Cual es la derivada de f(x) = 3x^2?
+Respuesta correcta: f'(x) = 6x
+---------------------------------------
+Pregunta: ¿Cuanto es 10 + 8?
+Respuesta correcta: 18
+---------------------------------------
+Pregunta: Cual es la media de los numeros 2, 4, 6 y 8?
+Respuesta correcta: 5
+---------------------------------------
+Pregunta: Resolver la ecuacion 3x - 4 = 11
+Respuesta correcta: x = 5
+---------------------------------------
+Pregunta: Cuanto mide cada angulo de un triangulo equilatero?
+Respuesta correcta: 60 grados
+---------------------------------------
+Pregunta: Cual es la integral de f(x) = 3x?
+Respuesta correcta: 1.5x^2 + C
+---------------------------------------
+Pregunta: Cuanto es 100 dividido entre 4?
+Respuesta correcta: 25
+---------------------------------------
+Pregunta: Si el rango de un conjunto de datos es 10, que significa?
+Respuesta correcta: La diferencia entre el maximo y el minimo es 10
+---------------------------------------
+Pregunta: Cual es el valor de y si 3y = 12?
+Respuesta correcta: y = 4
+---------------------------------------
+Pregunta: Cual es el area de un circulo con radio de 3 cm?
+Respuesta correcta: 9? cm^2
+---------------------------------------
+Pregunta: Cual es la derivada de f(x) = sin(x)?
+Respuesta correcta: f'(x) = cos(x)
+---------------------------------------
+Pregunta: Cuanto es 7 por 8?
+Respuesta correcta: 56
 ---------------------------------------

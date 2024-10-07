@@ -143,17 +143,22 @@ public class Main
 		            	switch(opcion2) {
 			            // MOSTRAR SOLUCIONARIO	
 		            	case 1:
-			            		 Menus.menuSolucionario(materias);
-                                String temaSeleccionado4 = entrada.next();
-                                if (!temaSeleccionado4.equals("Salir")) {
-                                    BancoPreguntas bancoSeleccionado = bancosPorTema.get(temaSeleccionado4);
-                                    archivo.leerArchivoCSV("src/Preguntas/" + temaSeleccionado4 + ".csv");
-                                    
-                                    // Llamar a la clase GeneradorSolucionario para crear el archivo .txt
-                                    GeneradorSolucionario.generarSolucionario(bancoSeleccionado, temaSeleccionado4);
-                                } else {
-                                    System.out.println("Volviendo... \n");
-                                }
+		            			System.out.println("\n¿Deseas descargar todos los solucionarios?\n1)Si\n2)NO\n3)Salir\nEscriba número de la respuesta: ");
+		            			int si_no = entrada.nextInt();
+		            			if(!(si_no == 3)) {
+		            				if(si_no == 1) GeneradorSolucionario.generarSolucionario(bancosPorTema, materias);
+		            				else {
+				            			Menus.menuSolucionario(materias);
+					            		 
+		                                String temaSeleccionado4 = entrada.next();
+		                                if (!temaSeleccionado4.equals("Salir")) {
+		                                    BancoPreguntas bancoSeleccionado = bancosPorTema.get(temaSeleccionado4);
+		                                    archivo.leerArchivoCSV("src/Preguntas/" + temaSeleccionado4 + ".csv");
+		                                    // Llamar a la clase GeneradorSolucionario para crear el archivo .txt
+		                                    GeneradorSolucionario.generarSolucionario(bancoSeleccionado, temaSeleccionado4);
+		                                } else System.out.println("Volviendo... \n");
+			            			}
+		            			} else System.out.println("Volviendo... \n");
                                 break;
 				            	
 			            // EDITOR DE PREGUNTAS	
@@ -194,54 +199,33 @@ public class Main
 				            				}
 				            				else System.out.println("Volviendo...");
 				            				break;
-				            				
 				            		// MODIFICAR PREGUNTA	
-			            			case 2:
-				            				Menus.ModificarPreguntas(materias);
-				            				String temaSeleccionado7 = entrada.next();
-				            				if(!temaSeleccionado7.equals("Salir")) 
-				            				{
-				            					BancoPreguntas bancoSeleccionado = bancosPorTema.get(temaSeleccionado7);
-                                                if (bancoSeleccionado != null) {
-                                                    System.out.println("Seleccione el número de la pregunta que desea modificar:");
-                                                    List<Pregunta> preguntas = bancoSeleccionado.getPreguntas();
-                                                    for (int i = 0; i < preguntas.size(); i++) {
-                                                        System.out.println((i + 1) + ". " + preguntas.get(i).getEnunciado());
-                                                    }
-                                                    System.out.println((preguntas.size()+1)+". Salir\n"+"Ingrese el número de la pregunta a eliminar: ");
-                                                    int preguntaIndex = entrada.nextInt() - 1;
-                                                    if(!(preguntas.size() + 1 == preguntaIndex)) break;
-                                                    if (preguntaIndex >= 0 && preguntaIndex < preguntas.size()) {
-                                                        Pregunta preguntaAModificar = preguntas.get(preguntaIndex);
-                                                        String nuevoEnunciado;
-                                                        String[] nuevasRespuestas;
-                                                        String nuevaRespuestaCorrecta;
-                                                        if (preguntas.contains(preguntaAModificar)) {
-                                                            System.out.println("Ingrese el nuevo enunciado: ");
-                                                            entrada.nextLine();  // Consumir la nueva línea pendiente
-                                                            nuevoEnunciado = entrada.nextLine();
-
-                                                            System.out.println("Ingrese las nuevas alternativas separadas por comas (ej: opción1, opción2, opción3, opción4): ");
-                                                            String alternativas = entrada.nextLine();
-                                                            nuevasRespuestas = alternativas.split(",\\s*");  // Divide la entrada por comas
-
-                                                            System.out.println("Ingrese la nueva respuesta correcta: ");
-                                                            nuevaRespuestaCorrecta = entrada.nextLine();
-                                                            bancosPorTema = ObtenerDatos.modificarPregunta(temaSeleccionado7, preguntaAModificar, nuevoEnunciado, nuevasRespuestas,
-                                                            		nuevaRespuestaCorrecta, bancosPorTema);
-                                                        }
-                                                        else {
-                                                            System.out.println("La pregunta no se encuentra en el banco de preguntas.");
-                                                        }
-                                                    } else {
-                                                        System.out.println("Índice de pregunta no válido.");
-                                                    }
-                                                } else {
-                                                    System.out.println("Materia no encontrada.");
-                                                }
-				            				}
-				            				else System.out.println("Volviendo...");
-				            				break;
+					            	case 2:
+						            		Menus.ModificarPreguntas(materias);
+						           			String temaSeleccionado7 = entrada.next();
+						           			if(!temaSeleccionado7.equals("Salir")) {
+						           				BancoPreguntas bancoSeleccionado = bancosPorTema.get(temaSeleccionado7);
+						           				if (bancoSeleccionado != null) {
+						           					System.out.println("Seleccione el número de la pregunta que desea modificar:");
+		                                            List<Pregunta> preguntas = bancoSeleccionado.getPreguntas();
+		                                            for (int i = 0; i < preguntas.size(); i++) {
+		                                            	System.out.println((i + 1) + ". " + preguntas.get(i).getEnunciado());
+		                                            }
+		                                            System.out.println((preguntas.size()+1)+". Salir\n"+"Ingrese el número de la pregunta a eliminar: ");
+		                                            int preguntaIndex = entrada.nextInt() - 1;
+		                                            if(!(preguntas.size() + 1 == preguntaIndex)) break;
+		                                            if (preguntaIndex >= 0 && preguntaIndex < preguntas.size()) {
+		                                            	Pregunta preguntaAModificar = preguntas.get(preguntaIndex);
+		                                            	ObtenerDatos.modificarPregunta(temaSeleccionado7, preguntaAModificar, bancosPorTema, entrada);
+		                                            } else {
+		                                            	System.out.println("Índice de pregunta no válido.");
+		                                            }
+		                                            } else {
+		                                            	System.out.println("Materia no encontrada.");
+		                                            }
+						           				}
+						            		else System.out.println("Volviendo...");
+						            		break;
 
 				            		// AGREGAR PREGUNTAS
 									case 3:

@@ -65,7 +65,7 @@ public class ObtenerDatos {
     	Scanner entrada = new Scanner(System.in);;
         if (bancosPorTema.containsKey(materia)) {
             BancoPreguntas banco = bancosPorTema.get(materia);
-            List<Pregunta> preguntas = banco.getPreguntas(); // Asumiendo que hay un getter para obtener la lista de preguntas
+            List<Pregunta> preguntas = banco.getPreguntas();
 
                 // Modificamos los valores de la pregunta
                 preguntaAModificar.setEnunciado(nuevoEnunciado);
@@ -79,6 +79,39 @@ public class ObtenerDatos {
             System.out.println("La materia no existe en el sistema.");
         }
         return bancosPorTema;
+    }
+    
+    public static void modificarPregunta(String materia, Pregunta preguntaAModificar, Map<String, BancoPreguntas> bancosPorTema, Scanner entrada) {
+        if (bancosPorTema.containsKey(materia)) {
+            BancoPreguntas banco = bancosPorTema.get(materia);
+            List<Pregunta> preguntas = banco.getPreguntas();
+            if (preguntas.contains(preguntaAModificar)) {
+                System.out.println("Ingrese el nuevo enunciado: ");
+                entrada.nextLine();  // Consumir la nueva línea pendiente
+                String nuevoEnunciado = entrada.nextLine();
+
+                System.out.println("Ingrese las nuevas alternativas separadas por comas (ej: opción1, opción2, opción3, opción4): ");
+                String alternativas = entrada.nextLine();
+                String[] nuevasRespuestas = alternativas.split(",\\s*");  // Divide la entrada por comas
+
+                System.out.println("Ingrese la nueva respuesta correcta: ");
+                String nuevaRespuestaCorrecta = entrada.nextLine();
+
+                // Modificamos los valores de la pregunta
+                preguntaAModificar.setEnunciado(nuevoEnunciado);
+                preguntaAModificar.setRespuestas(nuevasRespuestas);
+                preguntaAModificar.setRespuestaCorrecta(nuevaRespuestaCorrecta);
+
+                System.out.println("La pregunta ha sido modificada exitosamente.");
+
+                // Guardar los cambios en el archivo CSV
+                ArchivoCSV.guardarCambiosEnCSV(banco, materia);
+            } else {
+                System.out.println("La pregunta no se encuentra en el banco de preguntas.");
+            }
+        } else {
+            System.out.println("La materia no existe en el sistema.");
+        }
     }
 
     public static Map<String, BancoPreguntas> agregarPregunta(String tema, String enunciado, String[] respuestas, String RespuestaCorrecta, Map<String, BancoPreguntas> bancosPorTema) {

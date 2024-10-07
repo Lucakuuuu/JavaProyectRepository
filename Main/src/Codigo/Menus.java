@@ -1,7 +1,6 @@
 package Codigo;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Menus {
 	public static void menuPrincipal() {
@@ -74,7 +73,8 @@ public class Menus {
 		System.out.println("\n| ---------- | EDITOR | ---------- |\n"
 				+ "1) ELIMINAR PREGUNTA\n"
 				+ "2) MODIFICAR PREGUNTA\n"
-				+ "3) VOLVER AL MENÚ PRINCIPAL\n"
+				+ "3) AGREGAR PREGUNTAS\n"
+				+ "4) VOLVER AL MENÚ PRINCIPAL\n"
 				+ "Ingrese una opción: ");
 	}
 
@@ -92,5 +92,13 @@ public class Menus {
 		for (String materia : materias) System.out.println("- " + materia);
         System.out.println("- Salir\n"
         		+ "Escriba la materia de la que desea modificar preguntas: ");
+	}
+
+	public static void menuAgregarPreguntas(Set<String> materias) {
+		System.out.println("\n| ---------- | AGREGAR PREGUNTAS | ---------- |\n"
+    			+ "Materias:");
+		for (String materia : materias) System.out.println("- " + materia);
+        System.out.println("- Salir\n"
+        		+ "Escriba la materia de la que desea agregar preguntas: ");
 	}
 }

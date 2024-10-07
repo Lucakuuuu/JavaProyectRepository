@@ -1,15 +1,15 @@
-matematicas;Algebra;Cual es el valor de x si 2x + 3 = 7?;A) x = 2;B) x = 3;C) x = 1;D) x = 0;A
-matematicas;Geometria;Cual es el perimetro de un cuadrado con lado de 5 cm?;A) 15 cm;B) 20 cm;C) 25 cm;D) 30 cm;B
-matematicas;Calculo;Cual es la derivada de f(x) = 3x^2?;A) f'(x) = 6x;B) f'(x) = 3x;C) f'(x) = 9x;D) f'(x) = 0;A
-matematicas;Aritmetica;Cuanto es 15 + 8?;A) 20;B) 23;C) 22;D) 24;B
-matematicas;Estadistica;Cual es la media de los numeros 2, 4, 6 y 8?;A) 6;B) 4;C) 5;D) 7;C
-matematicas;Algebra;Resolver la ecuacion 3x - 4 = 11;A) x = 2;B) x = 5;C) x = 4;D) x = 3;B
-matematicas;Geometria;Cuanto mide cada angulo de un triangulo equilatero?;A) 60 grados;B) 90 grados;C) 45 grados;D) 30 grados;A
-matematicas;Calculo;Cual es la integral de f(x) = 3x?;A) 1.5x^2 + C;B) 3x^2;C) x^3 + C;D) x^2 + C;A
-matematicas;Aritmetica;Cuanto es 100 dividido entre 4?;A) 20;B) 30;C) 25;D) 15;C
-matematicas;Estadistica;Si el rango de un conjunto de datos es 10, que significa?;A) La media es 10;B) La diferencia entre el maximo y el minimo es 10;C) La mediana es 10;D) El conjunto tiene 10 elementos;B
-matematicas;Algebra;Cual es el valor de y si 3y = 12?;A) y = 3;B) y = 4;C) y = 5;D) y = 6;B
-matematicas;Geometria;Cual es el area de un circulo con radio de 3 cm?;A) 9? cm^2;B) 6? cm^2;C) 3? cm^2;D) 12? cm^2;A
-matematicas;Calculo;Cual es la derivada de f(x) = sin(x)?;A) f'(x) = cos(x);B) '(x) = -sin(x);C) f'(x) = -cos(x);D) f'(x) = tan(x);A
-matematicas;Aritmetica;Cuanto es 7 por 8?;A) 56;B) 54;C) 53;D) 55;A
-matematicas;Estadistica;Cual es la moda de los numeros 2, 3, 3, 4, 5?;A) 2;B) 3;C) 4;D) 5;B
+Cual es el valor de x si 2x + 3 = 7?;x = 2;x = 3;x = 1;x = 0;A
+Cual es el perimetro de un cuadrado con lado de 5 cm?;15 cm;20 cm;25 cm;30 cm;B
+Cual es la derivada de f(x) = 3x^2?;f'(x) = 6x;f'(x) = 3x;f'(x) = 9x;f'(x) = 0;A
+¿Cuanto es 10 + 8?;18;23;22;24;A
+Cual es la media de los numeros 2, 4, 6 y 8?;6;4;5;7;C
+Resolver la ecuacion 3x - 4 = 11;x = 2;x = 5;x = 4;x = 3;B
+Cuanto mide cada angulo de un triangulo equilatero?;60 grados;90 grados;45 grados;30 grados;A
+Cual es la integral de f(x) = 3x?;1.5x^2 + C;3x^2;x^3 + C;x^2 + C;A
+Cuanto es 100 dividido entre 4?;20;30;25;15;C
+Si el rango de un conjunto de datos es 10, que significa?;La media es 10;La diferencia entre el maximo y el minimo es 10;La mediana es 10;El conjunto tiene 10 elementos;B
+Cual es el valor de y si 3y = 12?;y = 3;y = 4;y = 5;y = 6;B
+Cual es el area de un circulo con radio de 3 cm?;9? cm^2;6? cm^2;3? cm^2;12? cm^2;A
+Cual es la derivada de f(x) = sin(x)?;f'(x) = cos(x);(x) = -sin(x);f'(x) = -cos(x);f'(x) = tan(x);A
+Cuanto es 7 por 8?;56;54;53;55;A
+Cual es la moda de los numeros 2, 3, 3, 4, 5?;2;3;4;5;B

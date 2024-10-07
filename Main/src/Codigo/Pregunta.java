@@ -18,10 +18,10 @@ public class Pregunta {
     public String[] getRespuestas() {
         return respuestas;
     }
-
-    public boolean esCorrecta(String respuestaUsuario) {
-        return respuestaUsuario.equals(respuestaCorrecta);
-    }
+    
+	public String getRespuestaCorrecta() {
+		return respuestaCorrecta;
+	}
     
     public void setEnunciado(String enunciado) {
         this.enunciado = enunciado;
@@ -30,12 +30,12 @@ public class Pregunta {
     public void setRespuestas(String[] respuestas) {
         this.respuestas = respuestas;
     }
-
+    
     public void setRespuestaCorrecta(String respuestaCorrecta) {
         this.respuestaCorrecta = respuestaCorrecta;
     }
 
-	public String getRespuestaCorrecta() {
-		return respuestaCorrecta;
-	}
+    public boolean esCorrecta(String respuestaUsuario) {
+        return respuestaUsuario.equals(respuestaCorrecta);
+    }
 }

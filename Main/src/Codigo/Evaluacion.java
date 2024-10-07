@@ -67,6 +67,14 @@ public class Evaluacion {
     	return banco;
     }
     
+    public void setPuntuacion(int puntuacion) {
+        this.puntuacion = puntuacion;
+    }
+    
+    public void setBanco(BancoPreguntas banco) {
+    	this.banco = banco;
+    }
+    
     public void incrementarPuntuacion() {
     	this.puntuacion += 1;
     }

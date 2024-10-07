@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+
 public class Main 
 {
 	public static void main(String[] args) 
@@ -79,23 +80,59 @@ public class Main
 
 	            case 3:
 	            	// PRACTICA
-	            	Menus.menuPractica();
-                    String temaSeleccionado3 = entrada.next();
-                    if (!temaSeleccionado3.equals("Salir")) {
-                        BancoPreguntas materiaSeleccionado = bancosPorTema.get(temaSeleccionado3);
-                        if (materiaSeleccionado != null) {
-                            Practica practica = new Practica(materiaSeleccionado);
-                            practica.realizarPractica(entrada);
-                            Puntajes puntaje = new Puntajes(temaSeleccionado3, practica.getPuntuacion(), materiaSeleccionado.getPreguntas().size());
-                            puntajesPracticas.add(puntaje);
-                            System.out.println("Práctica registrada correctamente.\n");
-                        } else {
-                            System.out.println("Materia no encontrada.\n");
-                        }
-                    } else {
-                        System.out.println("Volviendo...\n");
-                    }
-                    break;
+	            	int salida = 0;
+	            	while(salida == 0) {
+	            		Menus.menuPractica();
+		            	int opcion2 = entrada.nextInt();
+		            	switch(opcion2){
+		            	case 1:
+		            		Menus.subMenuPractica(materias);
+			                String temaSeleccionado3 = entrada.next();
+			                if(!temaSeleccionado3.equals("Salir")) {
+			                	BancoPreguntas materiaSeleccionado = bancosPorTema.get(temaSeleccionado3);
+				                if (materiaSeleccionado != null){
+						           	Evaluacion evaluacion = new Evaluacion(materiaSeleccionado);
+						           	evaluacion.realizarPractica(entrada, bancosPorTema);
+						           	Puntajes puntaje = new Puntajes(temaSeleccionado3, evaluacion.getPuntuacion(), materiaSeleccionado.getPreguntas().size());
+						           	puntajesPracticas.add(puntaje);
+						           	System.out.println("Práctica registrada correctamente.\n");
+				                }
+					            else System.out.println("Materia no encontrada.\n");
+			                }
+			                else System.out.println("Volviendo... ");
+		            		break;
+		            		
+		            	case 2:
+			            	if(puntajesPracticas.isEmpty()) System.out.println("No hay puntajes registrados.");
+			            	else {
+			            		int salida1 = 0;
+				            	while(salida1 == 0) {
+				            		Menus.subMenuRegistroPuntajes(materias);
+					            	String temaSeleccionado5 = entrada.next();
+					                if(!temaSeleccionado5.equals("Salir")) {
+					                	List<Puntajes> puntajes = new ArrayList<>();
+					                	for (Puntajes puntaje : puntajesPracticas) if(temaSeleccionado5.equals(puntaje.getMateria())) puntajes.add(puntaje);
+					                	if(puntajes.size() == 0) System.out.println("No hay notas registradas para este tema...");
+					                	else
+					                		for(Puntajes puntaje : puntajes)
+					                			System.out.println("---------------- o -----------------\n"
+						            					+ puntaje);
+					                }
+					                else {
+					                	System.out.println("Volviendo...");
+					            		salida1 = 1;
+					                }
+				            	}
+			            	}
+		            		break;
+		            		
+		            	case 3:
+		            		System.out.println("Volviendo al menú principal...\n");
+		            		salida = 1;
+		            		break;
+		            	}
+	            	}
+	            	break;
 
 	            case 4:
 	            	// EXTRAS
@@ -176,7 +213,26 @@ public class Main
                                                     if(!(preguntas.size() + 1 == preguntaIndex)) break;
                                                     if (preguntaIndex >= 0 && preguntaIndex < preguntas.size()) {
                                                         Pregunta preguntaAModificar = preguntas.get(preguntaIndex);
-                                                        ObtenerDatos.modificarPregunta(temaSeleccionado7, preguntaAModificar, bancosPorTema, entrada);
+                                                        String nuevoEnunciado;
+                                                        String[] nuevasRespuestas;
+                                                        String nuevaRespuestaCorrecta;
+                                                        if (preguntas.contains(preguntaAModificar)) {
+                                                            System.out.println("Ingrese el nuevo enunciado: ");
+                                                            entrada.nextLine();  // Consumir la nueva línea pendiente
+                                                            nuevoEnunciado = entrada.nextLine();
+
+                                                            System.out.println("Ingrese las nuevas alternativas separadas por comas (ej: opción1, opción2, opción3, opción4): ");
+                                                            String alternativas = entrada.nextLine();
+                                                            nuevasRespuestas = alternativas.split(",\\s*");  // Divide la entrada por comas
+
+                                                            System.out.println("Ingrese la nueva respuesta correcta: ");
+                                                            nuevaRespuestaCorrecta = entrada.nextLine();
+                                                            bancosPorTema = ObtenerDatos.modificarPregunta(temaSeleccionado7, preguntaAModificar, nuevoEnunciado, nuevasRespuestas,
+                                                            		nuevaRespuestaCorrecta, bancosPorTema);
+                                                        }
+                                                        else {
+                                                            System.out.println("La pregunta no se encuentra en el banco de preguntas.");
+                                                        }
                                                     } else {
                                                         System.out.println("Índice de pregunta no válido.");
                                                     }
@@ -186,8 +242,30 @@ public class Main
 				            				}
 				            				else System.out.println("Volviendo...");
 				            				break;
+
+				            		// AGREGAR PREGUNTAS
+									case 3:
+											Menus.menuAgregarPreguntas(materias);	
+	                                		String temaSeleccionado8 = entrada.next();
+	                                		if (!temaSeleccionado8.equals("Salir")) {
+	                                            // Recibir la nueva pregunta del usuario
+	                                            System.out.println("Ingrese el enunciado de la nueva pregunta:");
+	                                            entrada.nextLine();  // Consumir la nueva línea
+	                                            String enunciado = entrada.nextLine();
+
+	                                            System.out.println("Ingrese las opciones de respuesta (separadas por coma):");
+	                                            String[] respuestas = entrada.nextLine().split(",");
+
+	                                            System.out.println("Ingrese el número de la respuesta correcta (1-" + respuestas.length + "):");
+	                                            int respuestaCorrecta = entrada.nextInt();
+	                                            String[] Respuestas = {"A", "B", "C", "D"};
+	                                            bancosPorTema = ObtenerDatos.agregarPregunta(temaSeleccionado8, enunciado, respuestas, Respuestas[respuestaCorrecta-1], bancosPorTema);
+											} else {
+												System.out.println("Volviendo...");
+	                                		}
+	                                		break;
 				            		// CERRAR
-				            		case 3:
+				            		case 4:
 				            				System.out.println("Volviendo... \n");
 				            				salida2 = true;
 				            				break;
@@ -206,7 +284,6 @@ public class Main
 	            case 5:
 	            	System.out.println("Saliendo del programa...");
 	            	salir = true;
-	            	LimpiarPantalla.limpiarPantalla();
 	            	break;
 
 	            default:

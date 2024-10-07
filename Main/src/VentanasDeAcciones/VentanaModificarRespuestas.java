@@ -15,11 +15,13 @@ public class VentanaModificarRespuestas extends JFrame {
     private JTextField campoRespuestaCorrecta;
     private JButton btnConfirmar;
     private Pregunta pregunta;
+    private String preguntaModificada;
     private BancoPreguntas bancoSeleccionado;
     private Map<String, BancoPreguntas> bancosPorTema;
 
-    public VentanaModificarRespuestas(Pregunta pregunta, BancoPreguntas bancoSeleccionado, Map<String, BancoPreguntas> bancosPorTema) {
+    public VentanaModificarRespuestas(Pregunta pregunta, String preguntaModificada, BancoPreguntas bancoSeleccionado, Map<String, BancoPreguntas> bancosPorTema) {
         this.pregunta = pregunta;
+        this.preguntaModificada = preguntaModificada;
         this.bancoSeleccionado = bancoSeleccionado;
         this.bancosPorTema = bancosPorTema;
 
@@ -66,15 +68,12 @@ public class VentanaModificarRespuestas extends JFrame {
         for (int i = 0; i < respuestasFields.length; i++) {
             nuevasRespuestas[i] = respuestasFields[i].getText();
         }
-
         String nuevaRespuestaCorrecta = campoRespuestaCorrecta.getText();
-
-        // Actualizar la pregunta con las nuevas respuestas
-        pregunta.setRespuestas(nuevasRespuestas);
-        pregunta.setRespuestaCorrecta(nuevaRespuestaCorrecta);
+        bancosPorTema = ObtenerDatos.modificarPregunta(bancoSeleccionado.getTema(), pregunta, preguntaModificada, nuevasRespuestas, nuevaRespuestaCorrecta, bancosPorTema);
 
         // Actualizar el banco de preguntas
         bancosPorTema.put(bancoSeleccionado.getTema(), bancoSeleccionado);
+        JOptionPane.showMessageDialog(this, "Pregunta modificada y guardada exitosamente.");
         JOptionPane.showMessageDialog(this, "Respuestas modificadas exitosamente.");
         dispose(); // Cerrar la ventana después de confirmar
     }

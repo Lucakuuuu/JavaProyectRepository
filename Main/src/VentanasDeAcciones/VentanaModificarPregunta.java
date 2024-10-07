@@ -122,32 +122,14 @@ public class VentanaModificarPregunta extends JFrame {
             Pregunta preguntaAModificar = preguntas.get(indicePregunta);
 
             // Actualizar el enunciado de la pregunta con el texto del TextArea
-            preguntaAModificar.setEnunciado(textAreaPregunta.getText());
+            String PreguntaModificada = textAreaPregunta.getText();
 
-            // Actualizar el banco de preguntas con los nuevos datos
-            bancosPorTema.put(bancoSeleccionado.getTema(), bancoSeleccionado);
-            
-            JOptionPane.showMessageDialog(this, "Pregunta modificada exitosamente.");
-
-            // Diálogo de confirmación para modificar las respuestas
-            int respuesta = JOptionPane.showConfirmDialog(this, 
-                    "¿Desea modificar las respuestas también?", 
-                    "Confirmación", 
-                    JOptionPane.YES_NO_OPTION);
-            
-            if (respuesta == JOptionPane.YES_OPTION) {
-                // Si el usuario elige "Sí", se abre la ventana para modificar las respuestas
-                new VentanaModificarRespuestas(preguntaAModificar, bancoSeleccionado, bancosPorTema);
-            } else {
-                // Si elige "No", no se hace nada más, vuelve a la ventana actual
-                JOptionPane.showMessageDialog(this, "No se modificaron las respuestas.");
-            }
+            // Guardar los cambios en el archivo CSV
+            new VentanaModificarRespuestas(preguntaAModificar, PreguntaModificada, bancoSeleccionado, bancosPorTema);
         } else {
             JOptionPane.showMessageDialog(this, "Índice de pregunta no válido.");
         }
     }
-
-
 
     // Método para volver al menú principal
     private void volverAlMenu() {

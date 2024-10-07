@@ -49,11 +49,18 @@ public class VentanaMenuEditorPreguntas extends JFrame {
 		btnModificarPregunta.setBounds(189, 160, 306, 30);
 		contentPane.add(btnModificarPregunta);
 		
+		// Botón "Agregar pregunta"
+		JButton btnAgregarPregunta = new JButton("Agregar una pregunta");
+		btnAgregarPregunta.setForeground(new Color(255, 255, 255));
+		btnAgregarPregunta.setBackground(Color.BLACK);
+		btnAgregarPregunta.setBounds(189, 200, 306, 30);
+		contentPane.add(btnAgregarPregunta);
+		
 		// Botón "Volver al Menú Principal"
 		JButton btnVolver = new JButton("Volver al Menú Extras");
 		btnVolver.setForeground(new Color(255, 255, 255));
 		btnVolver.setBackground(Color.BLACK);
-		btnVolver.setBounds(189, 200, 306, 30);
+		btnVolver.setBounds(189, 240, 306, 30);
 		contentPane.add(btnVolver);
 		
 		setVisible(true);
@@ -67,6 +74,12 @@ public class VentanaMenuEditorPreguntas extends JFrame {
 		
 		btnModificarPregunta.addActionListener(e -> {
 				new VentanaSeleccionModificarPregunta(materias, bancosPorTema, registroNotas, puntajesPracticas);
+				dispose();
+			}
+		);
+		
+		btnAgregarPregunta.addActionListener(e -> {
+				new VentanaSeleccionAgregarPregunta(materias, bancosPorTema, registroNotas, puntajesPracticas);
 				dispose();
 			}
 		);

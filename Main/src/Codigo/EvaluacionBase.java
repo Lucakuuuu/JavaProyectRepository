@@ -15,8 +15,9 @@ public abstract class EvaluacionBase {
     public void realizarEvaluacion(Scanner entrada) throws RespuestaInvalidaException {
         List<Pregunta> preguntasEvaluacion = banco.getPreguntas();
         puntuacion = 0;
+        int numero = 1;
         for (Pregunta pregunta : preguntasEvaluacion) {
-            System.out.println(pregunta.getEnunciado());
+            System.out.println("PREGUNTA "+ numero+"\n"+pregunta.getEnunciado());
             String[] respuestas = pregunta.getRespuestas();
             for (int i = 0; i < respuestas.length; i++) {
                 System.out.println((i + 1) + ") " + respuestas[i]);
@@ -47,5 +48,9 @@ public abstract class EvaluacionBase {
 
     public int getPuntuacion() {
         return puntuacion;
+    }
+    
+    public void setPuntuacion(int puntuacion) {
+        this.puntuacion = puntuacion;
     }
 }

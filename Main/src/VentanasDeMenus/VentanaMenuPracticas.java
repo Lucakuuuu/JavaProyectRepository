@@ -18,7 +18,7 @@ public class VentanaMenuPracticas extends JFrame {
 	private JPanel contentPane;
 
 	public VentanaMenuPracticas(Set<String> materias, Map<String, BancoPreguntas> bancosPorTema, List<Nota> registroNotas, List<Puntajes> puntajesPracticas) {
-		setTitle("Menú de Extras");
+		setTitle("Menú de Prácticas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 450);
 		contentPane = new JPanel();

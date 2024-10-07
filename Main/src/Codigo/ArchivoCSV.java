@@ -2,6 +2,8 @@ package Codigo;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -41,17 +43,13 @@ public class ArchivoCSV
 			while ((linea = lector.readLine()) != null)
 			{
 				parte = linea.split(";");
-				String asignatura = parte[0];
-				String tema = parte[1];
-				String pregunta = parte[2];
-				String respuesta1 = parte[3];
-				String respuesta2 = parte[4];
-				String respuesta3 = parte[5];
-				String respuesta4 = parte[6];
-				String respuestaValida = parte[7];
+				String pregunta = parte[0];
+                String respuesta1 = parte[1];
+                String respuesta2 = parte[2];
+                String respuesta3 = parte[3];
+                String respuesta4 = parte[4];
+                String respuestaValida = parte[5];
 				System.out.println();
-				System.out.println("Asignatura: " + asignatura);
-				System.out.println("Tema: " + tema);
 				System.out.println("Pregunta: " + pregunta);
 				System.out.println(respuesta1);
 				System.out.println(respuesta2);
@@ -77,12 +75,12 @@ public class ArchivoCSV
 			while ((linea = lector.readLine()) != null)
 			{
 				parte = linea.split(";");
-				String pregunta = parte[2];
-				String respuesta1 = parte[3];
-				String respuesta2 = parte[4];
-				String respuesta3 = parte[5];
-				String respuesta4 = parte[6];
-				String respuestaValida = parte[7];
+				String pregunta = parte[0];
+                String respuesta1 = parte[1];
+                String respuesta2 = parte[2];
+                String respuesta3 = parte[3];
+                String respuesta4 = parte[4];
+                String respuestaValida = parte[5];
 				Pregunta nuevaPregunta = new Pregunta(pregunta, new String[]{respuesta1, respuesta2, respuesta3, respuesta4}, respuestaValida);
 				preguntas.add(nuevaPregunta);
 			}
@@ -94,4 +92,42 @@ public class ArchivoCSV
 		}
 		return preguntas;
 	}
+
+	public static void guardarCambiosEnCSV(BancoPreguntas banco, String tema) {
+        if (banco != null) {
+            List<Pregunta> preguntas = banco.getPreguntas();
+            String rutaCSV = "src/Preguntas/" + tema + ".csv"; // Ruta del archivo CSV
+            
+            // Sobreescribir el archivo CSV con las preguntas actuales
+            try (FileWriter escritor = new FileWriter(rutaCSV)) {
+                // Iterar sobre las preguntas y escribirlas en formato CSV
+                for (Pregunta pregunta : preguntas) {
+                    String enunciado = pregunta.getEnunciado();
+                    String[] respuestas = pregunta.getRespuestas();
+                    String respuestaCorrecta = pregunta.getRespuestaCorrecta();
+                    
+                    // Escribir cada pregunta en formato CSV
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(enunciado).append(";");
+                    
+                    // Agregar las respuestas separadas por ";"
+                    for (String respuesta : respuestas) {
+                        sb.append(respuesta).append(";");
+                    }
+                    
+                    // Agregar la respuesta correcta
+                    sb.append(respuestaCorrecta).append("\n");
+                    
+                    // Escribir la pregunta completa en el archivo
+                    escritor.write(sb.toString());
+                }
+                System.out.println("Cambios guardados exitosamente en el archivo CSV: " + tema + ".csv\n");
+            } catch (IOException e) {
+                System.out.println("Ocurrió un error al guardar los cambios en el archivo CSV.");
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Banco de preguntas no encontrado.");
+        }
+    }
 }

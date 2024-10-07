@@ -62,14 +62,12 @@ public class VentanaSolucionario extends JFrame {
                 String[] parte = linea.split(";");
                 // Formatear el texto del solucionario
                 solucionario.append("------------------ o ------------------\n");
-                solucionario.append("Asignatura: ").append(parte[0]).append("\n");
-                solucionario.append("Tema: ").append(parte[1]).append("\n");
-                solucionario.append("Pregunta: ").append(parte[2]).append("\n");
-                solucionario.append("A) ").append(parte[3]).append("\n");
-                solucionario.append("B) ").append(parte[4]).append("\n");
-                solucionario.append("C) ").append(parte[5]).append("\n");
-                solucionario.append("D) ").append(parte[6]).append("\n");
-                solucionario.append("Respuesta: ").append(parte[7]).append("\n");
+                solucionario.append("Pregunta: ").append(parte[0]).append("\n");
+                solucionario.append("A) ").append(parte[1]).append("\n");
+                solucionario.append("B) ").append(parte[2]).append("\n");
+                solucionario.append("C) ").append(parte[3]).append("\n");
+                solucionario.append("D) ").append(parte[4]).append("\n");
+                solucionario.append("Respuesta: ").append(parte[5]).append("\n");
                 solucionario.append("\n");
             }
         } catch (Exception e) {

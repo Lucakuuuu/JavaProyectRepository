@@ -1,0 +1,5 @@
+Solucionario para el tema: Matematicas
+
+Pregunta: ¿Cuanto es 5 + 5?
+Respuesta correcta: 10
+---------------------------------------

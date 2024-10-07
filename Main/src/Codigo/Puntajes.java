@@ -23,6 +23,18 @@ public class Puntajes {
 		return maxPuntaje;
 	}
 	
+	public void setMateria(String materia) {
+		this.materia = materia;
+	}
+	
+	public void setPuntaje(int puntaje) {
+		this.puntaje = puntaje;
+	}
+	
+	public void setMaxPuntaje(int maxPuntaje) {
+		this.maxPuntaje = maxPuntaje;
+	}
+	
 	public String toString()
 	{
 		return "Tema: " + materia
